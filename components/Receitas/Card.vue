@@ -3,7 +3,7 @@
         <h1 class="font-bold text-center">{{ receita.name }}</h1>
 
         <div class="flex md:justify-between flex-col md:flex-row items-center h-[100%]">
-            <img class="rounded-xl w-1/4" :src="receita.image" alt="">
+            <img class="rounded-xl w-1/3" :src="receita.image" alt="">
             <ul class="list-disc pl-5 w-3/5 flex flex-col justify-center mt-5 lg:mt-0 ">
                 <li v-for="t in receita.tags" :key="t">{{ t }}</li>
             </ul>

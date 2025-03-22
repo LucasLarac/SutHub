@@ -56,12 +56,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch  } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import BaseInput from '~/components/BaseInput.vue'
-import Loader from '~/components/Loader.vue'
+import Loader from '../../components/Loader.vue'
 import { useRouter } from "vue-router";
-import Card from '~/components/Card.vue';
+import Card from '~/components/Receitas/Card.vue';
 
 const { $axios } = useNuxtApp()
 const router = useRouter();
@@ -70,7 +70,6 @@ const selectedTags = ref([])
 const searchTag = ref('')
 const limit = ref('12')
 const skip = ref(0)
-const isLoading = ref(false)
 const total = ref(0)
 const erro = ref(false)
 const qtdLimit = ref(0)
@@ -89,10 +88,15 @@ function goToRecipe(id){
     router.push(`Receitas/${id}`)
 }
 
-function clearFiltered (){
-    selectedTags.value = []
-    searchTag.value = ''
-}
+const clearFiltered = () => {
+  selectedTags.value = [];
+  searchTag.value = '';
+  refetch();
+};
+
+watch(selectedTags, async () => {
+  await refetch();
+});
 
 function handleDisabledClick(tag) {
     if (selectedTags.value.length >= 2 && !selectedTags.value.includes(tag)) {
@@ -104,14 +108,16 @@ function handleDisabledClick(tag) {
     }
 }
 
-const { data: tags } = useQuery(['tags'], async () => {
-    isLoading.value = true
-    const response = await $axios.get('recipes/tags')
-    isLoading.value = false
-    return response.data.sort((a, b) => a.localeCompare(b))
-}, {
-    staleTime: Infinity,
-})
+const { data: tags, isLoading } = useQuery(
+  ['tags'], 
+  async () => {
+    const response = await $axios.get('recipes/tags');
+    return response.data.sort((a, b) => a.localeCompare(b));
+  },
+  {
+    staleTime: Infinity, 
+  }
+);
 
 const { data: recipes, refetch } = useQuery(
   ['recipes', selectedTags], 
@@ -138,7 +144,8 @@ const { data: recipes, refetch } = useQuery(
           );
         }
       });
-      total.value = responses[0].data.total;
+
+      total.value = combinedRecipes.length; 
       qtdLimit.value = responses[0].data.limit;
 
       return combinedRecipes;
@@ -153,6 +160,8 @@ const { data: recipes, refetch } = useQuery(
     staleTime: 6000,  
   }
 );
+
+
 
 
 
