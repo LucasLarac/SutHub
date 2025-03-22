@@ -35,7 +35,7 @@
         </table>
 
         <div class="flex justify-end gap-5 mt-5">
-          <button @click="backPage()" :style="{ visibility: skip != 20 ? 'visible' : 'hidden' }"
+          <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
             class="btn-change-page">Voltar</button>
           <button @click="nextPage()" :style="{ visibility: skip != 200 ? 'visible' : 'hidden' }"
             class="btn-change-page">Próximo</button>
@@ -62,7 +62,7 @@ import BaseInput from '~/components/BaseInput.vue';
 import Loader from '~/components/Loader.vue';
 
 const limit = ref(0)
-const skip = ref(20)
+const skip = ref(0)
 const total = ref(0)
 const searchUser = ref('')
 
@@ -110,6 +110,7 @@ let debounceTimer;
 
 watch(searchUser, () => {
   clearTimeout(debounceTimer);
+  skip.value = 0
   debounceTimer = setTimeout(() => {
     refetch();
   }, 500);
