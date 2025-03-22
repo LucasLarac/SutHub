@@ -13,6 +13,7 @@
     "@headlessui/vue": "^1.7.23",
     "@nuxt/eslint": "^1.2.0",
     "@nuxt/image": "^1.10.0",
+    "@nuxtjs/i18n": "^9.3.4",
     "@pinia/nuxt": "^0.10.1",
     "@tanstack/vue-query": "^4.37.1",
     "axios": "^1.8.4",

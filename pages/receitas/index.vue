@@ -56,6 +56,8 @@
 </template>
 
 <script setup>
+useHead({ title: `Sethub - Receitas`})
+
 import { ref, computed, watch  } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import BaseInput from '~/components/BaseInput.vue'

@@ -6,7 +6,7 @@
             <form @submit.prevent="validateSubmit()">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
                     <BaseInput v-model="form.nomeCompleto" label="Nome completo" required />
-                    <BaseInput v-model="form.cpf" label="CPF" required @input="form.cpf = formatCpf(form.cpf)"
+                    <BaseInput v-model="form.cpf" label="CPF" required inputmode="numeric" @input="form.cpf = formatCpf(form.cpf)"
                         :maxlength="14" />
                     <BaseInput v-model="form.dataAniversario" label="Data de nascimento" type="date" required />
                     <BaseInput v-model="form.celular" label="Celular" type="text" inputmode="numeric" required
@@ -75,6 +75,12 @@ import ListBox from '../Headless/ListBox.vue';
 import SendButton from '../Buttons/SendButton.vue';
 import { useUserStore } from '@/stores/useUser'
 
+const emit = defineEmits(["update:modelValue", "finalizar"]);
+
+
+function sendInfo() {
+  emit('finalizar', true)
+}
 const userStore = useUserStore()
 const showModal = ref(false)
 const { $axios } = useNuxtApp();
@@ -128,8 +134,8 @@ function validateSubmit(){
         notificacao.mensagem = 'Digite um CEP válido.'
     }  else if (semformatacao.renda < 1000) {  
         notificacao.mensagem = 'A renda deve ser superior a R$1000,00.'
-    }   else if (!form.raca || form.outraRaca) {  
-        notificacao.mensagem = 'Selecione a espécie.'
+    }  else if (!form.raca || (form.raca === 'Outros' && !form.outraRaca)) {
+            notificacao.mensagem = 'Selecione a espécie.'
     } else{
         submitForm();
     }
@@ -146,7 +152,7 @@ const submitForm = async () => {
     dados.cpf = semformatacao.cpf
     dados.renda = semformatacao.renda
     userStore.setUser(dados)
-    
+    sendInfo()
 }
 
 const getCep = async (cep) => {

@@ -13,6 +13,12 @@ export function validateFullName(nome) {
   return palavrasValidas.length >= 2;
 }
 
+export function formatDate(date) {
+  const [year, month, day] = date.split('-');
+  const paddedMonth = month.padStart(2, '0');
+  const paddedDay = day.padStart(2, '0');
+  return `${paddedDay}/${paddedMonth}/${year}`;
+}
 
 export function formatCpf(valor) {
   return valor

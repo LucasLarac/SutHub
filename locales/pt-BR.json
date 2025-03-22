@@ -1,0 +1,402 @@
+{
+    "recipes": [
+      {
+        "id": 1,
+        "name": "Pizza Margherita Clássica",
+        "ingredients": [
+          "Massa de pizza",
+          "Molho de tomate",
+          "Queijo mussarela fresco",
+          "Folhas de manjericão fresco",
+          "Azeite de oliva",
+          "Sal e pimenta a gosto"
+        ],
+        "instructions": [
+          "Pré-aqueça o forno a 245°C.",
+          "Abra a massa de pizza e espalhe o molho de tomate de forma uniforme.",
+          "Adicione fatias de mussarela fresca e folhas de manjericão.",
+          "Regue com azeite e tempere com sal e pimenta.",
+          "Asse no forno por 12-15 minutos ou até a massa dourar.",
+          "Fatie e sirva quente."
+        ],
+        "prepTimeMinutes": 20,
+        "cookTimeMinutes": 15,
+        "servings": 4,
+        "difficulty": "Fácil",
+        "cuisine": "Italiana",
+        "caloriesPerServing": 300,
+        "tags": [
+          "Pizza",
+          "Italiana"
+        ],
+        "userId": 166,
+        "image": "https://cdn.dummyjson.com/recipe-images/1.webp",
+        "rating": 4.6,
+        "reviewCount": 98,
+        "mealType": [
+          "Jantar"
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Stir-Fry Vegetariano",
+        "ingredients": [
+          "Tofu em cubos",
+          "Buquês de brócolis",
+          "Cenouras fatiadas",
+          "Pimentões fatiados",
+          "Molho de soja",
+          "Gengibre picado",
+          "Alho picado",
+          "Óleo de gergelim",
+          "Arroz cozido para servir"
+        ],
+        "instructions": [
+          "Aqueça o óleo de gergelim em fogo médio-alto em uma wok.",
+          "Adicione o gengibre e o alho picados, refogue até liberar aroma.",
+          "Adicione o tofu e frite até dourar.",
+          "Adicione os vegetais e cozinhe até ficarem levemente macios.",
+          "Adicione o molho de soja e misture bem.",
+          "Sirva sobre o arroz cozido."
+        ],
+        "prepTimeMinutes": 15,
+        "cookTimeMinutes": 20,
+        "servings": 3,
+        "difficulty": "Médio",
+        "cuisine": "Asiática",
+        "caloriesPerServing": 250,
+        "tags": [
+          "Vegetariano",
+          "Stir-fry",
+          "Asiática"
+        ],
+        "userId": 143,
+        "image": "https://cdn.dummyjson.com/recipe-images/2.webp",
+        "rating": 4.7,
+        "reviewCount": 26,
+        "mealType": [
+          "Almoço"
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Cookies com Gotas de Chocolate",
+        "ingredients": [
+          "Farinha de trigo",
+          "Manteiga amolecida",
+          "Açúcar mascavo",
+          "Açúcar branco",
+          "Ovos",
+          "Extrato de baunilha",
+          "Bicarbonato de sódio",
+          "Sal",
+          "Gotas de chocolate"
+        ],
+        "instructions": [
+          "Pré-aqueça o forno a 175°C.",
+          "Misture a manteiga, o açúcar mascavo e o branco até obter um creme.",
+          "Adicione os ovos um a um e misture a baunilha.",
+          "Em outro recipiente, misture farinha, bicarbonato e sal, e adicione à mistura úmida.",
+          "Adicione as gotas de chocolate.",
+          "Coloque colheradas de massa em uma forma sem untar.",
+          "Asse por 10-12 minutos ou até dourar nas bordas.",
+          "Deixe esfriar um pouco antes de transferir para uma grade."
+        ],
+        "prepTimeMinutes": 15,
+        "cookTimeMinutes": 10,
+        "servings": 24,
+        "difficulty": "Fácil",
+        "cuisine": "Americana",
+        "caloriesPerServing": 150,
+        "tags": [
+          "Cookies",
+          "Sobremesa",
+          "Assados"
+        ],
+        "userId": 34,
+        "image": "https://cdn.dummyjson.com/recipe-images/3.webp",
+        "rating": 4.9,
+        "reviewCount": 13,
+        "mealType": [
+          "Lanche",
+          "Sobremesa"
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Macarrão Alfredo com Frango",
+        "ingredients": [
+          "Macarrão fettuccine",
+          "Peito de frango em tiras",
+          "Creme de leite fresco",
+          "Queijo parmesão ralado",
+          "Alho picado",
+          "Manteiga",
+          "Sal e pimenta a gosto",
+          "Salsinha fresca para decorar"
+        ],
+        "instructions": [
+          "Cozinhe o macarrão conforme instruções da embalagem.",
+          "Em uma frigideira, doure o frango na manteiga.",
+          "Adicione o alho e refogue até perfumar.",
+          "Adicione o creme de leite e o parmesão, mexendo até derreter.",
+          "Tempere com sal e pimenta.",
+          "Misture com o macarrão cozido.",
+          "Decore com salsinha e sirva."
+        ],
+        "prepTimeMinutes": 15,
+        "cookTimeMinutes": 20,
+        "servings": 4,
+        "difficulty": "Médio",
+        "cuisine": "Italiana",
+        "caloriesPerServing": 500,
+        "tags": [
+          "Macarrão",
+          "Frango"
+        ],
+        "userId": 136,
+        "image": "https://cdn.dummyjson.com/recipe-images/4.webp",
+        "rating": 4.9,
+        "reviewCount": 82,
+        "mealType": [
+          "Almoço",
+          "Jantar"
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Frango com Salsa de Manga",
+        "ingredients": [
+          "Coxas de frango",
+          "Manga picada",
+          "Cebola roxa picada",
+          "Coentro picado",
+          "Suco de limão",
+          "Jalapeño picado",
+          "Sal e pimenta a gosto",
+          "Arroz cozido para servir"
+        ],
+        "instructions": [
+          "Tempere o frango com sal e pimenta.",
+          "Grelhe ou asse até ficar bem cozido.",
+          "Misture manga, cebola, coentro, jalapeño e limão em uma tigela.",
+          "Pique o frango e misture com a salsa de manga.",
+          "Sirva com arroz."
+        ],
+        "prepTimeMinutes": 15,
+        "cookTimeMinutes": 25,
+        "servings": 3,
+        "difficulty": "Fácil",
+        "cuisine": "Mexicana",
+        "caloriesPerServing": 380,
+        "tags": [
+          "Frango",
+          "Salsa"
+        ],
+        "userId": 26,
+        "image": "https://cdn.dummyjson.com/recipe-images/5.webp",
+        "rating": 4.9,
+        "reviewCount": 63,
+        "mealType": [
+          "Jantar"
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Salada de Quinoa com Abacate",
+        "ingredients": [
+          "Quinoa cozida",
+          "Abacate picado",
+          "Tomates-cereja cortados ao meio",
+          "Pepino picado",
+          "Pimentão vermelho picado",
+          "Queijo feta esfarelado",
+          "Molho vinagrete de limão",
+          "Sal e pimenta a gosto"
+        ],
+        "instructions": [
+          "Misture todos os ingredientes em uma tigela grande.",
+          "Regue com o vinagrete e misture bem.",
+          "Tempere com sal e pimenta.",
+          "Leve à geladeira antes de servir."
+        ],
+        "prepTimeMinutes": 20,
+        "cookTimeMinutes": 15,
+        "servings": 4,
+        "difficulty": "Fácil",
+        "cuisine": "Mediterrânea",
+        "caloriesPerServing": 280,
+        "tags": [
+          "Salada",
+          "Quinoa"
+        ],
+        "userId": 197,
+        "image": "https://cdn.dummyjson.com/recipe-images/6.webp",
+        "rating": 4.4,
+        "reviewCount": 59,
+        "mealType": [
+          "Almoço",
+          "Acompanhamento"
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Bruschetta de Tomate e Manjericão",
+        "ingredients": [
+          "Baguete em fatias",
+          "Tomates picados",
+          "Manjericão fresco picado",
+          "Alho picado",
+          "Glacê balsâmico",
+          "Azeite de oliva",
+          "Sal e pimenta a gosto"
+        ],
+        "instructions": [
+          "Pré-aqueça o forno a 190°C.",
+          "Toste as fatias de baguete no forno até dourarem.",
+          "Misture os tomates, manjericão, alho e azeite em uma tigela.",
+          "Tempere com sal e pimenta.",
+          "Coloque a mistura sobre as fatias de pão.",
+          "Regue com glacê balsâmico antes de servir."
+        ],
+        "prepTimeMinutes": 15,
+        "cookTimeMinutes": 10,
+        "servings": 6,
+        "difficulty": "Fácil",
+        "cuisine": "Italiana",
+        "caloriesPerServing": 120,
+        "tags": [
+          "Bruschetta",
+          "Italiana"
+        ],
+        "userId": 137,
+        "image": "https://cdn.dummyjson.com/recipe-images/7.webp",
+        "rating": 4.7,
+        "reviewCount": 95,
+        "mealType": [
+          "Aperitivo"
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Carne com Brócolis ao Estilo Asiático",
+        "ingredients": [
+          "Carne bovina em tiras finas",
+          "Buquês de brócolis",
+          "Molho de soja",
+          "Molho de ostra",
+          "Óleo de gergelim",
+          "Alho picado",
+          "Gengibre picado",
+          "Amido de milho",
+          "Arroz branco cozido para servir"
+        ],
+        "instructions": [
+          "Misture molho de soja, ostra, óleo de gergelim e amido em uma tigela.",
+          "Frite a carne até dourar. Reserve.",
+          "Refogue o brócolis, alho e gengibre na mesma panela.",
+          "Adicione a carne de volta e o molho.",
+          "Misture até aquecer tudo por igual.",
+          "Sirva com arroz branco."
+        ],
+        "prepTimeMinutes": 20,
+        "cookTimeMinutes": 15,
+        "servings": 4,
+        "difficulty": "Médio",
+        "cuisine": "Asiática",
+        "caloriesPerServing": 380,
+        "tags": [
+          "Carne",
+          "Stir-fry",
+          "Asiática"
+        ],
+        "userId": 18,
+        "image": "https://cdn.dummyjson.com/recipe-images/8.webp",
+        "rating": 4.7,
+        "reviewCount": 58,
+        "mealType": [
+          "Jantar"
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Salada Caprese",
+        "ingredients": [
+          "Tomates fatiados",
+          "Queijo mussarela fresco fatiado",
+          "Folhas de manjericão fresco",
+          "Glacê balsâmico",
+          "Azeite extra virgem",
+          "Sal e pimenta a gosto"
+        ],
+        "instructions": [
+          "Monte fatias de tomate e mussarela alternadas em um prato.",
+          "Coloque folhas de manjericão entre as fatias.",
+          "Regue com azeite e glacê balsâmico.",
+          "Tempere com sal e pimenta.",
+          "Sirva imediatamente."
+        ],
+        "prepTimeMinutes": 10,
+        "cookTimeMinutes": 0,
+        "servings": 2,
+        "difficulty": "Fácil",
+        "cuisine": "Italiana",
+        "caloriesPerServing": 200,
+        "tags": [
+          "Salada",
+          "Caprese"
+        ],
+        "userId": 128,
+        "image": "https://cdn.dummyjson.com/recipe-images/9.webp",
+        "rating": 4.6,
+        "reviewCount": 82,
+        "mealType": [
+          "Almoço"
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Macarrão com Camarão ao Alho e Limão",
+        "ingredients": [
+          "Macarrão linguine",
+          "Camarões limpos",
+          "Alho picado",
+          "Vinho branco",
+          "Suco de limão",
+          "Pimenta calabresa",
+          "Salsinha fresca picada",
+          "Sal e pimenta a gosto"
+        ],
+        "instructions": [
+          "Cozinhe o macarrão conforme instruções da embalagem.",
+          "Refogue o alho em azeite até liberar aroma.",
+          "Adicione os camarões e cozinhe até ficarem rosados.",
+          "Adicione o vinho e o limão e deixe reduzir.",
+          "Tempere com pimenta calabresa, sal e pimenta.",
+          "Misture o molho ao macarrão.",
+          "Decore com salsinha e sirva."
+        ],
+        "prepTimeMinutes": 15,
+        "cookTimeMinutes": 20,
+        "servings": 3,
+        "difficulty": "Médio",
+        "cuisine": "Italiana",
+        "caloriesPerServing": 400,
+        "tags": [
+          "Macarrão",
+          "Camarão"
+        ],
+        "userId": 114,
+        "image": "https://cdn.dummyjson.com/recipe-images/10.webp",
+        "rating": 4.3,
+        "reviewCount": 5,
+        "mealType": [
+          "Jantar"
+        ]
+      }
+    ],
+    "total": 50,
+    "skip": 0,
+    "limit": 10
+  }
+  

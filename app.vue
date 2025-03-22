@@ -13,7 +13,7 @@ useHead({
 
 <template>
   <div class="flex justify-center flex-col items-center bg-gray-100 min-h-screen">
-    <NuxtPage class="p-[30px] max-w-[1500px] w-full bg-gray-100 " />
+    <NuxtPage class="p-[30px] max-w-[1500px] w-full" />
     <!-- <FooterB /> -->
   </div>
 </template>

@@ -9,8 +9,8 @@
     </template>
     
     <script setup>
-    import { onMounted } from "vue";
-    import { useNuxtApp } from "#app";
+useHead({ title: `Sethub - Teste`})
+
     import Card from "~/components/Card.vue";
     import { useRouter } from "vue-router";
     import receitaImage from '@/assets/img/receitas.png';
@@ -18,7 +18,6 @@
     import lista from '@/assets/img/lista.png';
     
     
-    const { $axios } = useNuxtApp();
     const router = useRouter();
     
     const options = ref([
@@ -30,20 +29,7 @@
     function goTo(page){
       router.push(page)
       
-      console.log('oi')
     }
     
-    
-    const getRecipes = async () => {
-      try {
-        const response = await $axios.get('/recipes');
-        console.log("Resposta:", response.data);
-      } catch (error) {
-        console.error("Erro ao buscar receitas:", error);
-      }
-    };
-    
-    onMounted(() => {
-      getRecipes();
-    });
+
     </script>
