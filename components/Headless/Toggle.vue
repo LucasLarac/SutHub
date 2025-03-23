@@ -14,6 +14,7 @@
         :class="localValue ? 'translate-x-6' : 'translate-x-1'"
       />
     </Switch>
+    <p v-if="error" class="text-red-500 text-xs mt-1 text-start">{{ error }}</p>
   </div>
 </template>
 
@@ -33,7 +34,9 @@ const props = defineProps({
   alwaysGray: { 
     type: Boolean,
     default: false
-  }
+  },
+  error: String
+
 })
 
 const emit = defineEmits(['update:modelValue'])

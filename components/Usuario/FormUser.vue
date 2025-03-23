@@ -10,7 +10,7 @@
                         @input="form.cpf = formatCpf(form.cpf)" :maxlength="14" />
                     <BaseInput :error="erros.dataAniversario" class="min-w[100%] min-h-[49px] md:min-h-auto min-w-auto" v-model="form.dataAniversario"
                         label="Data de nascimento" type="date" required />
-                    <BaseInput :error="erros.xxx" v-model="form.celular" label="Celular" type="text" inputmode="numeric" required
+                    <BaseInput :error="erros.celular" v-model="form.celular" label="Celular" type="text" inputmode="numeric" required
                         @input="form.celular = formatPhone(form.celular)" />
 
                     <div>
@@ -109,6 +109,7 @@ const erros = reactive({
   celular: '',
   cep: '',
   renda: '',
+  temcarro: '',
   raca: '',
 })
 
@@ -149,7 +150,6 @@ const semformatacao = reactive({
 
 function validateSubmit() {
 
-    semformatacao.celular = form.celular ? form.celular.replace(/\D/g, '') : '';
     semformatacao.cep = form.cep ? form.cep.replace(/\D/g, '') : '';
     semformatacao.cpf = form.cpf ? form.cpf.replace(/\D/g, '') : '';
     semformatacao.renda = form.renda ? parseFloat(form.renda.replace("R$", "").replace(/\./g, "").replace(",", ".")) : 0;
@@ -162,8 +162,10 @@ function validateSubmit() {
     erros.cep = !form.uf ? 'Digite um CEP válido.' : ''
     erros.renda = (semformatacao.renda < 1000) ? 'A renda deve ser superior a R$1000,00.' : ''
     erros.raca = !form.raca || (form.raca === 'Outros' && !form.outraRaca) ? 'Selecione a espécie.' : ''
+    erros.temcarro = form.temCarro ? 'è obrigatório ter possuir um carro.' : ''
 
-const hasErro = Object.values(erros).some(e => e !== '');
+
+    const hasErro = Object.values(erros).some(e => e !== '');
 if (!hasErro) {
   submitForm();
 }
