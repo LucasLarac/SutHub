@@ -10,7 +10,7 @@
             <BaseInput v-model="searchTag" label="Pesquisar" required />
             <span class="text-red-500 font-bold text-xs" :style="{ visibility: erro ? 'visible' : 'hidden' }">Permitido
                 filtrar apenas 2 tag's</span>
-            <div class="flex justify-between items-center mb-3">
+            <div class="flex justify-between items-center mb-3 md:mb-0">
                 <button @click="clearFiltered()"
                     class="text-black font-bold text-xs underline flex justify-end cursor-pointer"
                     :style="{ visibility: (searchTag !== '' || selectedTags.length > 0) ? 'visible' : 'hidden' }">

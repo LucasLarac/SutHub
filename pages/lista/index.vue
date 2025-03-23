@@ -38,7 +38,7 @@
         <div class="flex justify-end gap-5 mt-5">
           <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
             class="btn-change-page">Voltar</button>
-          <button @click="nextPage()" :style="{ visibility: skip != 200 ? 'visible' : 'hidden' }"
+          <button @click="nextPage()" :style="{ visibility: skip != 200 || total > 20 ? 'visible' : 'hidden' }"
             class="btn-change-page">Próximo</button>
         </div>
 

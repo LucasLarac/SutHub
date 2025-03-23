@@ -20,7 +20,7 @@
                 <h1 class="text-center text-3xl text-black">
                     Receitas!
                 </h1>
-                <span class="md:block invisible">Total: <strong>{{ total }}</strong></span>
+                <span class="md:visible invisible">Total: <strong>{{ total }}</strong></span>
                 <button @click="toggleSidebar" class="md:invisible bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
             </div>
 
@@ -33,7 +33,7 @@
             <div class="flex justify-end gap-5">
                 <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
                     class="btn-change-page">Voltar</button>
-                <button @click="nextPage()" :style="{ visibility: total != skip + qtdLimit ? 'visible' : 'hidden' }"
+                <button @click="nextPage()" :style="{ visibility: total > 12 ? 'visible' : 'hidden' }"
                     class="btn-change-page">Próximo</button>
             </div>
 
@@ -46,7 +46,7 @@
 <script setup>
 useHead({ title: `Sethub - Receitas` })
 
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import { useRouter } from "vue-router";
 import Card from '~/components/Receitas/Card.vue';
@@ -84,6 +84,8 @@ function fecharform() {
     isSidebarOpen.value = false
 }
 
+
+
 watch(selectedTags, async () => {
     await refetch();
 });
@@ -93,6 +95,18 @@ const handleUpdatedTags = async (tags) => {
     await refetch();
 }
 
+
+
+const { data: tags, isLoading } = useQuery(
+    ['tags'],
+    async () => {
+        const response = await $axios.get('recipes/tags');
+        return response.data.sort((a, b) => a.localeCompare(b));
+    },
+    {
+        staleTime: Infinity,
+    }
+);
 
 const { data: recipes, refetch } = useQuery(
     ['recipes', selectedTags],
@@ -135,6 +149,7 @@ const { data: recipes, refetch } = useQuery(
         staleTime: 6000,
     }
 );
+
 
 
 </script>
