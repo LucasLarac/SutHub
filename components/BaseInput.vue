@@ -26,6 +26,14 @@ defineEmits(["update:modelValue"]);
 </script>
 
 <style scoped>
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 12px;
+  font-size: 16px;
+  height: 40px;
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
