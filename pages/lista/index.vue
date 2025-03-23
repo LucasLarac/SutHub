@@ -25,10 +25,11 @@
               <td class="px-4 py-2 border-b">{{ u.firstName + ' ' + u.maidenName + " " + u.lastName }}</td>
               <td class="px-4 py-2 border-b text-center">{{ formatDate(u.birthDate) }}</td>
               <td class="px-4 py-2 border-b text-center">{{ u.gender == 'female' ? 'Feminino' : 'Masculino' }}</td>
-              <td class="px-4 py-2 border-b"> <a
+              <td class="px-4 py-2 border-b flex gap-1 items-center cursor-pointer"> <a
                   :href="`https://www.google.com/maps?q=${u.address.coordinates.lat},${u.address.coordinates.lng}`"
                   target="_blank" rel="noopener noreferrer">
                   {{ `${u.address.address}, ${u.address.city} ${u.address.stateCode} - ${u.address.country}` }}</a>
+                  <img src="../../assets/img/link.png" alt="compartilhar" class="w-[15px] h-[15px]">
               </td>
             </tr>
           </tbody>

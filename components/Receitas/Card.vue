@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-[#9EEFB999]  lg:h-[225px] lg:w-[250px] md:w-[200px] md:h-[255px]  h-[300px] w-[250] text-black  rounded-xl p-5 flex flex-col  items-center gap-2 cursor-pointer ">
-        <h1 class="font-bold text-center">{{ receita.name }}</h1>
+    <div class="bg-green-800  lg:h-[225px] lg:w-[250px] md:w-[200px] md:h-[255px]  h-[300px] w-[250] text-white  rounded-xl p-5 flex flex-col  items-center gap-2 cursor-pointer ">
+        <h1 class="font-bold text-center tracking-wider">{{ receita.name }}</h1>
 
         <div class="flex md:justify-between flex-col md:flex-row items-center h-[100%]">
             <img class="rounded-xl w-1/3" :src="receita.image" alt="">

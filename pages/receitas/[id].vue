@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen flex flex-col items-center bg-orange-600 text-white overflow-y-auto">
+  <div class="w-full min-h-screen flex flex-col items-center bg-orange-600 text-white ">
     <div v-if="!isLoading" class="gap-10 flex flex-col w-full   p-5 rounded-lg bg-orange-600 text-white">
       <h1 class="text-3xl mb-5 text-center font-bold tracking-wider">{{ item.name.toUpperCase() }}</h1>
 

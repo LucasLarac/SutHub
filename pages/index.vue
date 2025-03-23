@@ -1,7 +1,7 @@
 <template>
-    <div class="h-screen flex  items-center flex-col">
+    <div class="h-screen flex  items-center flex-col gap-10">
       <h2 class="text-4xl mt-[40px] text-center mb-[20px]">Seja bem vindo(a) ao meu teste!</h2>
-      <div class="h-[100vh] w-[100%] flex items-center justify-center gap-[30px]  flex-col md:flex-row ">
+      <div class="h-[100vh] w-[100%] flex items-start md:justify-center gap-[30px]  flex-col md:flex-row ">
         <Card @click="goTo(o.page)" v-for="o in options" :key="o.id" :options="o" />
       </div>
     </div>

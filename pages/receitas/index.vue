@@ -1,44 +1,32 @@
 <template>
     <div class="min-h-screen flex bg-gray-100">
-        <div class="w-1/4 p-4 bg-white rounded-md overflow-y-auto scrollbar-custom lg:h-[1050px] ">
-            <div class="flex items-center justify-end mb-1">
-                <span class="underline cursor-pointer lg:hidden">Fechar</span>
+
+        <!-- mob -->
+        <div class="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden" v-if="isSidebarOpen"
+            @click.self="isSidebarOpen = false">
+            <div class="w-4/5 bg-white h-full p-4 transition-transform transform"
+                :class="{ '-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen }">
+                <SideBar @update:tags="handleUpdatedTags" @fecharform="fecharform" />
             </div>
-            <div class="flex items-center justify-center mb-4">
-                <h3 class="text-lg font-semibold">Filtrar por Tags</h3>
-            </div>
-            <BaseInput v-model="searchTag" label="Pesquisar" required />
-            <span class="text-red-500 font-bold text-xs" :style="{ visibility: erro ? 'visible' : 'hidden' }">Permitido
-                filtrar apenas 2 tag's</span>
-            <span @click="clearFiltered()" class="text-black font-bold text-xs underline flex justify-end cursor-pointer"
-                :style="{ visibility: (searchTag !== '' || selectedTags.length > 0) ? 'visible' : 'hidden' }">
-                Limpar filtro
-            </span>
-            <div v-if="isLoading" class="flex justify-center">
-                <Loader />
-            </div>
-            <div v-else-if="filterTag.length > 0">
-                <div v-for="(tag, index) in filterTag" :key="index" class="flex items-center mb-2 cursor-pointer">
-                    <input type="checkbox" :id="tag" :value="tag" v-model="selectedTags"
-                        class="mr-2 cursor-pointer custom-checkbox" @click="handleDisabledClick(tag)" />
-                    <label :for="tag" class="text-lg">{{ tag }}</label>
-                </div>
-            </div>
-            <label v-else class="text-lg">Nenhuma tag com este nome</label>
+        </div>
+        <!-- desk -->
+        <div class="hidden md:block md:w-2/5 lg:w-1/4">
+            <SideBar @update:tags="handleUpdatedTags" />
         </div>
 
-        <div class="w-3/5 p-4">
+        <div class="md:w-3/5 p-4">
 
-            <div class="mb-5 bg-[#9EEFB999] py-2 px-5 rounded-lg flex justify-between items-center ">
+            <div class="mb-5  py-2 px-5 rounded-lg flex justify-between items-center ">
                 <h1 class="text-center text-3xl text-black">
                     Receitas!
                 </h1>
-                <span>Total: <strong>{{ total }}</strong></span>
+                <span class="md:block invisible">Total: <strong>{{ total }}</strong></span>
+                <button @click="toggleSidebar" class="md:invisible bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-9 gap-y-5 pb-10 w-[100%]">
                 <div v-for="r in recipes" :key="r.id" class="w-[100%]">
-                        <Card @click="goToRecipe(r.id)" :receita="r" />
+                    <Card @click="goToRecipe(r.id)" :receita="r" />
                 </div>
             </div>
 
@@ -56,24 +44,26 @@
 </template>
 
 <script setup>
-useHead({ title: `Sethub - Receitas`})
+useHead({ title: `Sethub - Receitas` })
 
-import { ref, computed, watch  } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
-import BaseInput from '~/components/BaseInput.vue'
-import Loader from '../../components/Loader.vue'
 import { useRouter } from "vue-router";
 import Card from '~/components/Receitas/Card.vue';
+import SideBar from '~/components/Receitas/SideBar.vue'
 
 const { $axios } = useNuxtApp()
 const router = useRouter();
 
+const isSidebarOpen = ref(false)
+const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value
+}
+
 const selectedTags = ref([])
-const searchTag = ref('')
 const limit = ref('12')
 const skip = ref(0)
 const total = ref(0)
-const erro = ref(false)
 const qtdLimit = ref(0)
 
 const nextPage = async () => {
@@ -86,135 +76,84 @@ const backPage = async () => {
     await refetch()
 }
 
-function goToRecipe(id){
+function goToRecipe(id) {
     router.push(`Receitas/${id}`)
 }
 
-const clearFiltered = () => {
-  selectedTags.value = [];
-  searchTag.value = '';
-  refetch();
-};
-
-watch(selectedTags, async () => {
-  await refetch();
-});
-
-function handleDisabledClick(tag) {
-    if (selectedTags.value.length >= 2 && !selectedTags.value.includes(tag)) {
-        erro.value = true;
-        setTimeout(() => {
-            erro.value = false;
-        }, 4000);
-        event.preventDefault();
-    }
+function fecharform() {
+    isSidebarOpen.value = false
 }
 
-const { data: tags, isLoading } = useQuery(
-  ['tags'], 
-  async () => {
-    const response = await $axios.get('recipes/tags');
-    return response.data.sort((a, b) => a.localeCompare(b));
-  },
-  {
-    staleTime: Infinity, 
-  }
-);
-
-const { data: recipes, refetch } = useQuery(
-  ['recipes', selectedTags], 
-  async () => {
-    let url = 'recipes';  
-    const params = {
-      limit: limit.value,
-      skip: skip.value
-    };
-
-    if (selectedTags.value.length > 0) {
-      const tagRequests = selectedTags.value.map(tag => 
-        $axios.get(`recipes/tag/${tag}`, { params })
-      );
-
-      const responses = await Promise.all(tagRequests);
-
-      let combinedRecipes = responses[0].data.recipes;
-
-      selectedTags.value.forEach((_, index) => {
-        if (index > 0) {
-          combinedRecipes = combinedRecipes.filter(recipe => 
-            responses[index].data.recipes.some(filteredRecipe => filteredRecipe.id === recipe.id)
-          );
-        }
-      });
-
-      total.value = combinedRecipes.length; 
-      qtdLimit.value = responses[0].data.limit;
-
-      return combinedRecipes;
-    } else {
-      const response = await $axios.get(url, { params });
-      total.value = response.data.total;
-      qtdLimit.value = response.data.limit;
-      return response.data.recipes;
-    }
-  },
-  {
-    staleTime: 6000,  
-  }
-);
-
-
-
-
-
-
-
-
-
-
-const filterTag = computed(() => {
-    if (!tags.value || !searchTag.value) {
-        return tags.value || [];
-    }
-    return tags.value.filter(tag => {
-        return tag.toLowerCase().includes(searchTag.value.toLowerCase());
-    });
+watch(selectedTags, async () => {
+    await refetch();
 });
 
+const handleUpdatedTags = async (tags) => {
+    selectedTags.value = tags
+    await refetch();
+}
+
+
+const { data: recipes, refetch } = useQuery(
+    ['recipes', selectedTags],
+    async () => {
+        let url = 'recipes';
+        const params = {
+            limit: limit.value,
+            skip: skip.value
+        };
+
+        if (selectedTags.value.length > 0) {
+            const tagRequests = selectedTags.value.map(tag =>
+                $axios.get(`recipes/tag/${tag}`, { params })
+            );
+
+            const responses = await Promise.all(tagRequests);
+
+            let combinedRecipes = responses[0].data.recipes;
+
+            selectedTags.value.forEach((_, index) => {
+                if (index > 0) {
+                    combinedRecipes = combinedRecipes.filter(recipe =>
+                        responses[index].data.recipes.some(filteredRecipe => filteredRecipe.id === recipe.id)
+                    );
+                }
+            });
+
+            total.value = combinedRecipes.length;
+            qtdLimit.value = responses[0].data.limit;
+
+            return combinedRecipes;
+        } else {
+            const response = await $axios.get(url, { params });
+            total.value = response.data.total;
+            qtdLimit.value = response.data.limit;
+            return response.data.recipes;
+        }
+    },
+    {
+        staleTime: 6000,
+    }
+);
 
 
 </script>
 
 <style scoped>
-.scrollbar-custom::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scrollbar-custom::-webkit-scrollbar-track {
-    background: gray;
-    border-radius: 10px;
-}
-
-.scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #42c563;
-    border-radius: 10px;
-}
-
-.scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #42c563;
-}
 
 .btn-change-page {
-    background-color: #9EEFB999;
+    background-color: #166534;
     padding: 3px;
     width: 120px;
     height: 35px;
     border-radius: 5px;
     font-size: 16px;
+    color: white;
+    letter-spacing: 1px;
 }
 
 .btn-change-page:hover {
-    background-color: #9eefb9;
+    background-color: #00a03d;
     font-size: 17px;
 }
 
