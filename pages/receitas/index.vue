@@ -1,41 +1,54 @@
 <template>
-    <div class="min-h-screen flex bg-gray-100">
+    <div class="min-h-screen bg-gray-100 flex flex-col">
 
-        <!-- mob -->
-        <div class="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden" v-if="isSidebarOpen"
-            @click.self="isSidebarOpen = false">
-            <div class="w-4/5 bg-white h-full p-4 transition-transform transform"
-                :class="{ '-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen }">
-                <SideBar @update:tags="handleUpdatedTags" @fecharform="fecharform" />
-            </div>
-        </div>
-        <!-- desk -->
-        <div class="hidden md:block md:w-2/5 lg:w-1/4">
-            <SideBar @update:tags="handleUpdatedTags" />
+        <div class="flax items-start justify-start mb-5">
+            <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
+            ← Voltar
+        </button>
         </div>
 
-        <div class="md:w-3/5 p-4">
+        <div class="flex">
 
-            <div class="mb-5  py-2 px-5 rounded-lg flex justify-between items-center ">
-                <h1 class="text-center text-3xl text-black">
-                    Receitas!
-                </h1>
-                <span class="md:visible invisible">Total: <strong>{{ total }}</strong></span>
-                <button @click="toggleSidebar" class="md:invisible bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-9 gap-y-5 pb-10 w-[100%]">
-                <div v-for="r in recipes" :key="r.id" class="w-[100%]">
-                    <Card @click="goToRecipe(r.id)" :receita="r" />
+            <!-- mob -->
+            <div class="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden mt-50px" v-if="isSidebarOpen"
+                @click.self="isSidebarOpen = false">
+                <div class="w-4/5 bg-white h-full p-4 transition-transform transform"
+                    :class="{ '-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen }">
+                    <SideBar @update:tags="handleUpdatedTags" @fecharform="fecharform" />
                 </div>
             </div>
-
-            <div class="flex justify-end gap-5">
-                <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
-                    class="btn-change-page">Voltar</button>
-                <button @click="nextPage()" :style="{ visibility: total > 12 ? 'visible' : 'hidden' }"
-                    class="btn-change-page">Próximo</button>
+            <!-- desk -->
+            <div class="hidden md:block md:w-2/5 lg:w-1/4">
+                <SideBar @update:tags="handleUpdatedTags" />
             </div>
+
+            <div class="md:w-3/5 p-4 pt-0 md:pt-4">
+
+                <div class="mb-5  py-2 px-5 rounded-lg flex justify-between items-center ">
+                    <h1 class="text-center text-3xl text-black">
+                        Receitas
+                    </h1>
+                    <span class="md:visible invisible">Total: <strong>{{ total }}</strong></span>
+                    <button @click="toggleSidebar"
+                        class="md:hidden bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-9 gap-y-5 pb-10 w-[100%]">
+                    <div v-for="r in recipes" :key="r.id" class="w-[100%]">
+                        <Card @click="goToRecipe(r.id)" :receita="r" />
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-5">
+                    <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
+                        class="btn-change-page">Voltar</button>
+                    <button @click="nextPage()" :style="{ visibility: total > 12 ? 'visible' : 'hidden' }"
+                        class="btn-change-page">Próximo</button>
+                </div>
+
+            </div>
+
+
 
         </div>
 
@@ -155,7 +168,6 @@ const { data: recipes, refetch } = useQuery(
 </script>
 
 <style scoped>
-
 .btn-change-page {
     background-color: #166534;
     padding: 3px;

@@ -2,10 +2,14 @@
   <div class="min-h-[100vh] ">
     <div v-if="!isLoading">
 
+      <div class="flax items-start justify-start mb-5 mx-[10%]">
+            <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
+            ← Voltar
+        </button>
+        </div>
 
-
-      <div class="flex justify-between mx-[10%] items-end">
-        <BaseInput class=" w-[300px]" v-model="searchUser" label="Pesquisar" />
+      <div class="flex justify-start  mx-[10%] items-end flex-col md:flex-row md:justify-between">
+        <BaseInput class=" w-[300px] mb-0" v-model="searchUser" label="Pesquisar" />
         <span>Total: {{ total }}</span>
       </div>
       <div v-if="user.length > 0" class="overflow-x-auto flex  justify-center flex-col mx-[10%]">
@@ -38,7 +42,7 @@
         <div class="flex justify-end gap-5 mt-5">
           <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
             class="btn-change-page">Voltar</button>
-          <button @click="nextPage()" :style="{ visibility: skip != 200 || total > 20 ? 'visible' : 'hidden' }"
+          <button @click="nextPage()" :style="{ visibility: total != skip + limit? 'visible' : 'hidden' }"
             class="btn-change-page">Próximo</button>
         </div>
 
@@ -61,7 +65,8 @@
 import { useQuery } from '@tanstack/vue-query'
 import BaseInput from '~/components/BaseInput.vue';
 import Loader from '~/components/Loader.vue';
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const limit = ref(0)
 const skip = ref(0)
 const total = ref(0)

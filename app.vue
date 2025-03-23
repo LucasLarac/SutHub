@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center flex-col items-center bg-gray-100 min-h-screen">
-    <Head v-show="mostrarHeader" />
+  <div class=" justify-center flex-col items-center bg-gray-100 min-h-screen ">
+    <Head v-show="mostrarHeader" class="hidden md:flex" />
         <NuxtPage class="p-[30px] max-w-[1500px] w-full" />
     <!-- <FooterB /> -->
   </div>

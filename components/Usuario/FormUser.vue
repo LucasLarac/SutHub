@@ -5,47 +5,62 @@
 
             <form @submit.prevent="validateSubmit()">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
-                    <BaseInput v-model="form.nomeCompleto" label="Nome completo" required />
-                    <BaseInput v-model="form.cpf" label="CPF" required inputmode="numeric" @input="form.cpf = formatCpf(form.cpf)"
-                        :maxlength="14" />
-                    <BaseInput v-model="form.dataAniversario" label="Data de nascimento" type="date" required />
-                    <BaseInput v-model="form.celular" label="Celular" type="text" inputmode="numeric" required
+                    <BaseInput :error="erros.nomeCompleto" v-model="form.nomeCompleto" label="Nome completo" required />
+                    <BaseInput :error="erros.cpf" v-model="form.cpf" label="CPF" required inputmode="numeric"
+                        @input="form.cpf = formatCpf(form.cpf)" :maxlength="14" />
+                    <BaseInput :error="erros.dataAniversario" class="min-w[100%] min-h-[49px] md:min-h-auto min-w-auto" v-model="form.dataAniversario"
+                        label="Data de nascimento" type="date" required />
+                    <BaseInput :error="erros.xxx" v-model="form.celular" label="Celular" type="text" inputmode="numeric" required
                         @input="form.celular = formatPhone(form.celular)" />
 
-                        <div>
-                            <BaseInput v-model="form.cep" label="CEP" type="text" inputmode="numeric" required
+                    <div>
+                        <BaseInput :error="erros.cep" v-model="form.cep" label="CEP" type="text" inputmode="numeric" required
                             @input="form.cep = formatCep(form.cep)" />
-                                <p v-show="form.rua">{{ form.rua }}, {{ form.cidade }} - {{ form.uf }}</p>
-                        </div>
+                        <p v-show="form.rua">{{ form.rua }}, {{ form.cidade }} - {{ form.uf }}</p>
+                    </div>
 
-                    <BaseInput v-model="form.renda" label="Renda mensal" type="text" inputmode="numeric" required
+                    <BaseInput :error="erros.renda" v-model="form.renda" label="Renda mensal" type="text" inputmode="numeric" required
                         @input="form.renda = formatCurrency(form.renda)" />
 
 
-                        <div class="gap-1">
-                            <label class="text-start flex mb-1"> Selecione seu pet</label>
-                            <div class="flex items-center gap-3">
-                                <span :class="form.gato ? 'text-gray-500' : 'text-blue-500  font-bold'">🐶 Cachorro</span>
-                                    <Toggle v-model="form.gato" :alwaysGray="true"  />
-                                <span :class="form.gato ? 'text-blue-500 font-bold' : 'text-gray-500'">🐱 Gato</span>
-                            </div>
+                    <div class="gap-1">
+                        <span class="w-full text-start flex mb-1">Selecione seu pet</span>
+                        <div class="flex items-center gap-3">
+                            <span :class="form.gato ? 'text-gray-500' : 'text-blue-500  font-bold'">🐶 Cachorro</span>
+                            <Toggle v-model="form.gato" :alwaysGray="true" />
+                            <span :class="form.gato ? 'text-blue-500 font-bold' : 'text-gray-500'">🐱 Gato</span>
                         </div>
+                    </div>
 
                     <ListBox v-model="form.raca" :options="!form.gato ? racasCao : racasGato"
-                        placeholder="Selecione a raça" />
-                    <BaseInput v-model="form.outraRaca" v-show="form.raca == 'Outros'" label="Qual?" type="text" />
+                        :placeholder="form.raca ? 'Selecione a raça ' : 'Selecione a raça ▼'" />
 
-                    <div class="flex gap-2 items-center">
-                        <button @click="showModal = true" title="Porque precisamos desta informação?" class="text-blue-600 border-2 border-blue-600 text-sm flex 
-                        items-center justify-center rounded-full w-[20px] h-[20px]">
-                            ?
-                        </button>
-                        <Toggle v-model="form.temCarro" label="Possui carro?" />
+                    <BaseInput :error="erros.outraRaca" class="flex md:hidden" v-model="form.outraRaca" v-if="form.raca == 'Outros'" label="Qual?" type="text" />
+
+
+                    <div class="flex gap-2 items-center flex-col justify-start">
+                        <div class="flex gap-2 w-full">
+                            <button @click="showModal = true" title="Porque precisamos desta informação?" class="text-blue-600 border-2 border-blue-600 text-sm flex 
+                            items-center justify-center rounded-full w-[20px] h-[20px]"> ?
+                            </button>
+                            <span>Possui carro?</span>
+
+                        </div>
+                        <div class="flex gap-2 items-center justify-start w-full">
+                            <span :class="form.temCarro ? 'text-gray-500' : 'text-red-600 font-bold'">Não</span>
+                            <Toggle v-model="form.temCarro" label="" />
+                            <span :class="form.temCarro ? 'text-green-600 font-bold' : 'text-gray-500'">Sim</span>
+
+                        </div>
                     </div>
+
+                    <BaseInput :error="erros.outraRaca" class="hidden md:flex" v-model="form.outraRaca" v-if="form.raca == 'Outros'" label="Qual?" type="text" />
+
 
                     <Dialog v-model="showModal" title="Por que perguntamos isso?">
                         <p>
-                            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum Lorem ipsumLorem ipsum Lorem ipsumLorem ipsum Lorem ipsum.
+                            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum Lorem ipsumLorem ipsum Lorem
+                            ipsumLorem ipsum Lorem ipsum.
                         </p>
                     </Dialog>
 
@@ -76,16 +91,24 @@ import SendButton from '../Buttons/SendButton.vue';
 import { useUserStore } from '@/stores/useUser'
 
 const emit = defineEmits(["update:modelValue", "finalizar"]);
-
+const erros = reactive({
+  nomeCompleto: '',
+  cpf: '',
+  dataAniversario: '',
+  celular: '',
+  cep: '',
+  renda: '',
+  raca: '',
+})
 
 function sendInfo() {
-  emit('finalizar', true)
+    emit('finalizar', true)
 }
 const userStore = useUserStore()
 const showModal = ref(false)
 const { $axios } = useNuxtApp();
 
-const notificacao = reactive({ mensagem: '', sucesso: 'erro' })
+const notificacao = reactive({ mensagem: '', sucesso: null })
 const racasCao = ref(['Lhasa Apso', 'Pitbull', 'Pastor Alemão', 'Poodle', 'Vira Lara', 'Outros'])
 const racasGato = ref(['Siamês', 'Persa', 'Maine Coon', 'Sphynx', 'British Shorthair', 'Outros'])
 
@@ -113,41 +136,34 @@ const semformatacao = reactive({
     cep: '',
 })
 
-function validateSubmit(){
+function validateSubmit() {
 
-    semformatacao.celular = form.celular ? form.celular.replace(/\D/g, '') : '';  
-    semformatacao.cep = form.cep ? form.cep.replace(/\D/g, '') : '';  
-    semformatacao.cpf = form.cpf ? form.cpf.replace(/\D/g, '') : '';                   
+    semformatacao.celular = form.celular ? form.celular.replace(/\D/g, '') : '';
+    semformatacao.cep = form.cep ? form.cep.replace(/\D/g, '') : '';
+    semformatacao.cpf = form.cpf ? form.cpf.replace(/\D/g, '') : '';
     semformatacao.renda = form.renda ? parseFloat(form.renda.replace("R$", "").replace(/\./g, "").replace(",", ".")) : 0;
 
 
+    erros.nomeCompleto = !validateFullName(form.nomeCompleto) ? 'Necessário informar o nome completo.' : ''
+erros.cpf = !validateCpf(form.cpf) ? 'Digite um CPF válido.' : ''
+erros.dataAniversario = !validateBirthDate(form.dataAniversario) ? 'A idade deve estar entre 18 e 65 anos.' : ''
+erros.celular = (form.celular.length <= 15) ? 'Digite um número válido.' : ''
+erros.cep = !form.uf ? 'Digite um CEP válido.' : ''
+erros.renda = (semformatacao.renda < 1000) ? 'A renda deve ser superior a R$1000,00.' : ''
+erros.raca = !form.raca || (form.raca === 'Outros' && !form.outraRaca) ? 'Selecione a espécie.' : ''
 
-    if (!validateFullName(form.nomeCompleto)) {  
-        notificacao.mensagem = 'Necessário informar o nome completo.'
-    } else if (!validateCpf(form.cpf)) {  
-        notificacao.mensagem = 'Digite um CPF válido.'
-    } else if (!validateBirthDate(form.dataAniversario)) {  
-        notificacao.mensagem = 'A idade deve estar entre 18 e 65 anos.'
-    } else if (form.celular.length <= 15) {  
-        notificacao.mensagem = 'Digite um número válido.'
-    } else if (!form.uf) {  
-        notificacao.mensagem = 'Digite um CEP válido.'
-    }  else if (semformatacao.renda < 1000) {  
-        notificacao.mensagem = 'A renda deve ser superior a R$1000,00.'
-    }  else if (!form.raca || (form.raca === 'Outros' && !form.outraRaca)) {
-            notificacao.mensagem = 'Selecione a espécie.'
-    } else{
-        submitForm();
-    }
+const hasErro = Object.values(erros).some(e => e !== '');
+if (!hasErro) {
+  submitForm();
+}
 
-    setTimeout(() => {
-            notificacao.mensagem = ''
-        }, 3000);
+
+
 
 }
 
 const submitForm = async () => {
-    let dados = {...form}
+    let dados = { ...form }
     dados.celular = semformatacao.celular
     dados.cpf = semformatacao.cpf
     dados.renda = semformatacao.renda
@@ -158,12 +174,12 @@ const submitForm = async () => {
 const getCep = async (cep) => {
     try {
         const resp = await $axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-        if(resp.data.erro){
+        if (resp.data.erro) {
             form.uf = ''
             form.cidade = ''
             form.bairro = ''
             form.rua = ''
-        } else{
+        } else {
             form.uf = resp.data.uf
             form.cidade = resp.data.localidade
             form.bairro = resp.data.bairro

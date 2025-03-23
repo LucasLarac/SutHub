@@ -1,15 +1,11 @@
 <template>
     <div class="min-h-screen flex bg-gray-100">
         <div class="w-full p-4 bg-white rounded-md overflow-y-auto scrollbar-custom lg:h-[1050px] ">
-            <!-- <div class="flex items-center justify-end mb-1">
-                <button @click="fechar()" class="underline cursor-pointer md:hidden">Fechar</button @click="fechar()">
-            </div> -->
-            <div class="flex items-center justify-center mb-4">
+            <div class="flex items-center justify-between md:justify-center mb-4">
                 <h3 class="text-lg font-semibold">Filtrar por Tags</h3>
+                <button @click="fechar()" class="underline cursor-pointer md:hidden">Fechar</button @click="fechar()">
             </div>
-            <BaseInput v-model="searchTag" label="Pesquisar" required />
-            <span class="text-red-500 font-bold text-xs" :style="{ visibility: erro ? 'visible' : 'hidden' }">Permitido
-                filtrar apenas 2 tag's</span>
+            <BaseInput class="md:mb-0" v-model="searchTag" label="Pesquisar" required />
             <div class="flex justify-between items-center mb-3 md:mb-0">
                 <button @click="clearFiltered()"
                     class="text-black font-bold text-xs underline flex justify-end cursor-pointer"
@@ -22,11 +18,19 @@
                 <Loader />
             </div>
             <div v-else-if="filterTag.length > 0">
-                <div v-for="(tag, index) in filterTag" :key="index" class="flex items-center mb-2 cursor-pointer">
-                    <input type="checkbox" :id="tag" :value="tag" v-model="selectedTags"
-                        class="mr-2 cursor-pointer custom-checkbox" @click="handleDisabledClick(tag)" />
-                    <label :for="tag" class="text-lg">{{ tag }}</label>
+                <div v-for="(tag, index) in filterTag" :key="index" class="flex flex-col gap-1 mb-2 cursor-pointer">
+                    <div class="flex flex-col md:inline-flex justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" :id="tag" :value="tag" v-model="selectedTags"
+                                class="mr-2 cursor-pointer custom-checkbox" @click="handleDisabledClick(tag)" />
+                            <label :for="tag" class="text-lg">{{ tag }}</label>
+                        </div>
+                        <span v-if="erro && erroTag === tag" class="text-red-500 font-bold text-xs ml-6">
+                            Permitido filtrar apenas 2 tag's
+                        </span>
+                    </div>
                 </div>
+
             </div>
             <label v-else class="text-lg">Nenhuma tag com este nome</label>
         </div>
@@ -45,6 +49,7 @@ const emit = defineEmits(['update:tags'])
 const selectedTags = ref([])
 const searchTag = ref('')
 const erro = ref(false)
+const erroTag = ref('');
 
 watch(selectedTags, (newTags) => {
     emit('update:tags', newTags)
@@ -57,8 +62,10 @@ function fechar() {
 function handleDisabledClick(tag) {
     if (selectedTags.value.length >= 2 && !selectedTags.value.includes(tag)) {
         erro.value = true;
+        erroTag.value = tag;
         setTimeout(() => {
-            erro.value = false;
+            erro.value = false
+            erroTag.value = '';
         }, 4000);
         event.preventDefault();
     }
@@ -111,4 +118,5 @@ const { data: tags, isLoading } = useQuery(
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: #42c563;
-}</style>
+}
+</style>
