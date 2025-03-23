@@ -8,35 +8,43 @@
                     <BaseInput :error="erros.nomeCompleto" v-model="form.nomeCompleto" label="Nome completo" required />
                     <BaseInput :error="erros.cpf" v-model="form.cpf" label="CPF" required inputmode="numeric"
                         @input="form.cpf = formatCpf(form.cpf)" :maxlength="14" />
-                    <BaseInput :error="erros.dataAniversario" class="min-w[100%] min-h-[49px] md:min-h-auto min-w-auto" v-model="form.dataAniversario"
-                        label="Data de nascimento" type="date" required />
-                    <BaseInput :error="erros.celular" v-model="form.celular" label="Celular" type="text" inputmode="numeric" required
-                        @input="form.celular = formatPhone(form.celular)" />
+                    <BaseInput :error="erros.dataAniversario" class="min-w[100%] min-h-[49px] md:min-h-auto min-w-auto"
+                        v-model="form.dataAniversario" label="Data de nascimento" type="date" required />
+                    <BaseInput :error="erros.celular" v-model="form.celular" label="Celular" type="text"
+                        inputmode="numeric" required @input="form.celular = formatPhone(form.celular)" />
 
                     <div>
-                        <BaseInput :error="erros.cep" v-model="form.cep" label="CEP" type="text" inputmode="numeric" required
-                            @input="form.cep = formatCep(form.cep)" />
+                        <BaseInput :error="erros.cep" v-model="form.cep" label="CEP" type="text" inputmode="numeric"
+                            required @input="form.cep = formatCep(form.cep)" />
                         <p v-show="form.rua">{{ form.rua }}, {{ form.cidade }} - {{ form.uf }}</p>
                     </div>
 
-                    <BaseInput :error="erros.renda" v-model="form.renda" label="Renda mensal" type="text" inputmode="numeric" required
-                        @input="form.renda = formatCurrency(form.renda)" />
+                    <BaseInput :error="erros.renda" v-model="form.renda" label="Renda mensal" type="text"
+                        inputmode="numeric" required @input="form.renda = formatCurrency(form.renda)" />
 
 
-                    <div class="gap-1">
-                        <span class="w-full text-start flex mb-1">Selecione seu pet</span>
-                        <div class="flex items-center gap-3">
-                            <span :class="form.gato ? 'text-gray-500' : 'text-blue-500  font-bold'">🐶 Cachorro</span>
-                            <Toggle v-model="form.gato" :alwaysGray="true" />
-                            <span :class="form.gato ? 'text-blue-500 font-bold' : 'text-gray-500'">🐱 Gato</span>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="font-medium text-start w-full">Selecione um animal:</label>
+                        <div class="flex gap-4 justify-start">
+                            <label class="flex items-center gap-1">
+                                <input type="radio" name="animal" value="Cachorro" v-model="form.animalselected" />
+                                Cachorro
+                            </label>
+
+                            <label class="flex items-center gap-1">
+                                <input type="radio" name="animal" value="Gato" v-model="form.animalselected" />
+                                Gato
+                            </label>
                         </div>
+                        <p v-if="erros.animalselected" class="text-red-500 text-xs mt-1 text-start w-full">{{ erros.animalselected }}</p>
                     </div>
 
-                    <ListBox v-model="form.raca" :options="!form.gato ? racasCao : racasGato"
+                    <ListBox :error="erros.raca" v-model="form.raca" :options="form.animalselected == 'Gato' ?  racasGato : racasCao"
                         :placeholder="form.raca ? 'Selecione a raça ' : 'Selecione a raça ▼'" />
 
-                    <BaseInput :error="erros.outraRaca"  v-model="form.outraRaca"   v-if="form.raca == 'Outros'"
-                    v-show="!isDesktop" label="Qual?" type="text" />
+                    <BaseInput :error="erros.outraRaca" v-model="form.outraRaca" v-if="form.raca == 'Outros'"
+                        v-show="!isDesktop" label="Qual?" type="text" />
 
 
                     <div class="flex gap-2 items-center flex-col justify-start">
@@ -53,10 +61,12 @@
                             <span :class="form.temCarro ? 'text-green-600 font-bold' : 'text-gray-500'">Sim</span>
 
                         </div>
+                        <p v-if="erros.temcarro" class="text-red-500 text-xs mt-1 text-start w-full">{{ erros.temcarro }}</p>
+
                     </div>
 
-                    <BaseInput :error="erros.outraRaca"  v-model="form.outraRaca"   v-if="form.raca == 'Outros'"
-                    v-show="isDesktop" label="Qual?" type="text" />
+                    <BaseInput :error="erros.outraRaca" v-model="form.outraRaca" v-if="form.raca == 'Outros'"
+                        v-show="isDesktop" label="Qual?" type="text" />
 
 
                     <Dialog v-model="showModal" title="Por que perguntamos isso?">
@@ -94,23 +104,24 @@ import { useUserStore } from '@/stores/useUser'
 const isDesktop = ref(false);
 
 onMounted(() => {
-  const checkSize = () => {
-    isDesktop.value = window.innerWidth >= 768; 
-  };
-  checkSize();
-  window.addEventListener('resize', checkSize);
+    const checkSize = () => {
+        isDesktop.value = window.innerWidth >= 768;
+    };
+    checkSize();
+    window.addEventListener('resize', checkSize);
 });
 
 const emit = defineEmits(["update:modelValue", "finalizar"]);
 const erros = reactive({
-  nomeCompleto: '',
-  cpf: '',
-  dataAniversario: '',
-  celular: '',
-  cep: '',
-  renda: '',
-  temcarro: '',
-  raca: '',
+    nomeCompleto: '',
+    cpf: '',
+    dataAniversario: '',
+    celular: '',
+    cep: '',
+    renda: '',
+    temcarro: '',
+    animalselected: '',
+    raca: '',
 })
 
 function sendInfo() {
@@ -136,7 +147,7 @@ const form = reactive({
     rua: '',
     renda: null,
     temCarro: false,
-    gato: false,
+    animalselected: '',
     raca: '',
     outraRaca: '',
 })
@@ -162,13 +173,14 @@ function validateSubmit() {
     erros.cep = !form.uf ? 'Digite um CEP válido.' : ''
     erros.renda = (semformatacao.renda < 1000) ? 'A renda deve ser superior a R$1000,00.' : ''
     erros.raca = !form.raca || (form.raca === 'Outros' && !form.outraRaca) ? 'Selecione a espécie.' : ''
-    erros.temcarro = form.temCarro ? 'è obrigatório ter possuir um carro.' : ''
+    erros.temcarro = !form.temCarro ? 'Obrigatório possuir um carro.' : ''
+    erros.animalselected = !form.animalselected ? 'Obrigatório selecionar um animal.' : ''
 
 
     const hasErro = Object.values(erros).some(e => e !== '');
-if (!hasErro) {
-  submitForm();
-}
+    if (!hasErro) {
+        submitForm();
+    }
 
 
 
@@ -204,7 +216,7 @@ const getCep = async (cep) => {
     }
 }
 
-watch(() => form.gato, () => {
+watch(() => form.animalselected, () => {
     form.raca = null
 })
 
@@ -222,5 +234,3 @@ watch(() => form.cep, (novoCep) => {
 
 
 <style></style> assim?
-
-

@@ -29,6 +29,7 @@
         </Transition>
       </div>
     </Listbox>
+    <p v-if="error" class="text-red-500 text-xs mt-1 text-start">{{ error }}</p>
   </div>
 </template>
 
@@ -52,7 +53,8 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: 'Selecione uma opção'
-  }
+  },
+  error :String
 })
 
 const emit = defineEmits(['update:modelValue'])
