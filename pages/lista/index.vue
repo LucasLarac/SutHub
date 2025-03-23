@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-[100vh] ">
-    <div v-if="!isLoading">
+    <div v-if="!isLoading" class="">
 
-      <div class="flax items-start justify-start mb-5 mx-[10%]">
+      <div class="flax items-start justify-start mb-5 mx-[10%] custompage">
             <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
             ← Voltar
         </button>
@@ -66,6 +66,7 @@ import { useQuery } from '@tanstack/vue-query'
 import BaseInput from '~/components/BaseInput.vue';
 import Loader from '~/components/Loader.vue';
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 const limit = ref(0)
 const skip = ref(0)
@@ -77,12 +78,15 @@ const { $axios } = useNuxtApp()
 const nextPage = async () => {
     skip.value = skip.value + 20;
     await refetch()
-}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 const backPage = async () => {
     skip.value = skip.value - 20;
     await refetch()
-}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
 
 const fetchUsers = async () => {
   const params = {

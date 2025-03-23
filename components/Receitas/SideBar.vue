@@ -1,14 +1,11 @@
 <template>
     <div class="min-h-screen flex bg-gray-100">
 
-        <div class="w-full p-4 bg-white rounded-md overflow-y-auto scrollbar-custom lg:h-[1050px] md:h-[1710px]  ">
-            <button
-  v-show="showScrollTop"
-  @click="scrollToTop"
-  class="fixed bottom-6 right-6 bg-green-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-800 transition md:hidden z-50"
->
-  ↑ Topo
-</button>
+        <div class="w-full p-4 bg-white rounded-md overflow-y-auto scrollbar-custom lg:h-[1050px] md:h-[1710px] scrollbar-custom h-[100vh] ">
+            <button v-show="showScrollTop" @click="scrollToTop('scrollbar-custom')"
+                class="fixed bottom-6 right-6 bg-green-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-800 transition md:hidden z-50">
+                ↑
+            </button>
             <div class="flex items-center justify-between md:justify-center mb-4">
                 <h3 class="text-lg font-semibold">Filtrar por Tags</h3>
                 <button @click="fechar()" class="underline cursor-pointer md:hidden">Fechar</button @click="fechar()">
@@ -52,6 +49,8 @@ import { useQuery } from '@tanstack/vue-query'
 import { useRouter } from "vue-router";
 import Loader from '../Loader.vue';
 import BaseInput from '../BaseInput.vue';
+import {scrollToTop} from '@/composables/functions'
+
 const emit = defineEmits(['update:tags'])
 
 const selectedTags = ref([])
@@ -65,18 +64,15 @@ watch(selectedTags, (newTags) => {
 
 const showScrollTop = ref(false);
 
-function scrollToTop() {
-  const container = document.querySelector('.scrollbar-custom');
-  container?.scrollTo({ top: 0, behavior: 'smooth' });
-}
+
 
 onMounted(() => {
-  const container = document.querySelector('.scrollbar-custom');
-  if (container) {
-    container.addEventListener('scroll', () => {
-      showScrollTop.value = container.scrollTop > 200;
-    });
-  }
+    const container = document.querySelector('.scrollbar-custom');
+    if (container) {
+        container.addEventListener('scroll', () => {
+            showScrollTop.value = container.scrollTop > 200;
+        });
+    }
 });
 
 

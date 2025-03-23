@@ -13,6 +13,11 @@ export function validateFullName(nome) {
   return palavrasValidas.length >= 2;
 }
 
+export function scrollToTop(item) {
+    const container = document.querySelector(`.${item}`);
+    container?.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 export function formatDate(date) {
   const [year, month, day] = date.split('-');
   const paddedMonth = month.padStart(2, '0');
