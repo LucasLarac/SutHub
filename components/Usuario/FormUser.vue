@@ -35,7 +35,8 @@
                     <ListBox v-model="form.raca" :options="!form.gato ? racasCao : racasGato"
                         :placeholder="form.raca ? 'Selecione a raça ' : 'Selecione a raça ▼'" />
 
-                    <BaseInput :error="erros.outraRaca" class="flex md:hidden" v-model="form.outraRaca" v-if="form.raca == 'Outros'" label="Qual?" type="text" />
+                    <BaseInput :error="erros.outraRaca"  v-model="form.outraRaca"   v-if="form.raca == 'Outros'"
+                    v-show="!isDesktop" label="Qual?" type="text" />
 
 
                     <div class="flex gap-2 items-center flex-col justify-start">
@@ -54,7 +55,8 @@
                         </div>
                     </div>
 
-                    <BaseInput :error="erros.outraRaca" class="hidden md:flex" v-model="form.outraRaca" v-if="form.raca == 'Outros'" label="Qual?" type="text" />
+                    <BaseInput :error="erros.outraRaca"  v-model="form.outraRaca"   v-if="form.raca == 'Outros'"
+                    v-show="isDesktop" label="Qual?" type="text" />
 
 
                     <Dialog v-model="showModal" title="Por que perguntamos isso?">
@@ -89,6 +91,15 @@ import Dialog from '../Headless/Dialog.vue';
 import ListBox from '../Headless/ListBox.vue';
 import SendButton from '../Buttons/SendButton.vue';
 import { useUserStore } from '@/stores/useUser'
+const isDesktop = ref(false);
+
+onMounted(() => {
+  const checkSize = () => {
+    isDesktop.value = window.innerWidth >= 768; 
+  };
+  checkSize();
+  window.addEventListener('resize', checkSize);
+});
 
 const emit = defineEmits(["update:modelValue", "finalizar"]);
 const erros = reactive({
@@ -145,12 +156,12 @@ function validateSubmit() {
 
 
     erros.nomeCompleto = !validateFullName(form.nomeCompleto) ? 'Necessário informar o nome completo.' : ''
-erros.cpf = !validateCpf(form.cpf) ? 'Digite um CPF válido.' : ''
-erros.dataAniversario = !validateBirthDate(form.dataAniversario) ? 'A idade deve estar entre 18 e 65 anos.' : ''
-erros.celular = (form.celular.length <= 15) ? 'Digite um número válido.' : ''
-erros.cep = !form.uf ? 'Digite um CEP válido.' : ''
-erros.renda = (semformatacao.renda < 1000) ? 'A renda deve ser superior a R$1000,00.' : ''
-erros.raca = !form.raca || (form.raca === 'Outros' && !form.outraRaca) ? 'Selecione a espécie.' : ''
+    erros.cpf = !validateCpf(form.cpf) ? 'Digite um CPF válido.' : ''
+    erros.dataAniversario = !validateBirthDate(form.dataAniversario) ? 'A idade deve estar entre 18 e 65 anos.' : ''
+    erros.celular = (form.celular.length <= 15) ? 'Digite um número válido.' : ''
+    erros.cep = !form.uf ? 'Digite um CEP válido.' : ''
+    erros.renda = (semformatacao.renda < 1000) ? 'A renda deve ser superior a R$1000,00.' : ''
+    erros.raca = !form.raca || (form.raca === 'Outros' && !form.outraRaca) ? 'Selecione a espécie.' : ''
 
 const hasErro = Object.values(erros).some(e => e !== '');
 if (!hasErro) {
@@ -208,4 +219,6 @@ watch(() => form.cep, (novoCep) => {
 
 
 
-<style></style>
+<style></style> assim?
+
+

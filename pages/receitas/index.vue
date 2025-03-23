@@ -22,9 +22,9 @@
                 <SideBar @update:tags="handleUpdatedTags" />
             </div>
 
-            <div class="md:w-3/5 w-[100%] p-4 pt-0 md:pt-4">
+            <div class="md:w-3/5 w-[100%] p-4 pt-0 ">
 
-                <div class="mb-5  py-2 rounded-lg flex justify-between items-center ">
+                <div class="mb-5  pb-2 rounded-lg flex justify-between items-center ">
                     <h1 class="text-center text-3xl text-black">
                         Receitas
                     </h1>
@@ -33,10 +33,16 @@
                         class="md:hidden bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-10 w-[100%]">
+                <div v-if="total > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-10 w-[100%]">
                     <div v-for="r in recipes" :key="r.id" class="w-[100%] flex justify-center">
                         <Card @click="goToRecipe(r.id)" :receita="r" />
                     </div>
+                </div>
+                <div v-else>
+                <P> Nenhuma receita encontrada com  {{  selectedTags.length === 1  ? selectedTags[0] : selectedTags.length >= 2
+                    ? `${selectedTags[0]} e ${selectedTags[1]}` : ''  }}</P>
+
+                    <!-- <button @click="limparfiltro()" class="underline mt-5 ">Limpar filtro</button> -->
                 </div>
 
                 <div class="flex justify-end gap-5">
@@ -73,20 +79,26 @@ const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value
 }
 
+
+
 const selectedTags = ref([])
 const limit = ref('12')
 const skip = ref(0)
 const total = ref(0)
 const qtdLimit = ref(0)
 
+
+
 const nextPage = async () => {
     skip.value = skip.value + 12;
     await refetch()
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 const backPage = async () => {
     skip.value = skip.value - 12;
     await refetch()
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goToRecipe(id) {

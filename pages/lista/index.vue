@@ -2,17 +2,17 @@
   <div class="min-h-[100vh] ">
     <div v-if="!isLoading" class="">
 
-      <div class="flax items-start justify-start mb-5 mx-[10%] custompage">
+      <div class="flax items-start justify-start mb-5 mx-[1%] custompage">
             <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
             ← Voltar
         </button>
         </div>
 
-      <div class="flex justify-start  mx-[10%] items-end flex-col md:flex-row md:justify-between">
+      <div class="flex justify-start  mx-[1%] items-end flex-col md:flex-row md:justify-between">
         <BaseInput class=" w-[100%] md:w-[300px] mb-0" v-model="searchUser" label="Pesquisar" />
         <span>Total: {{ total }}</span>
       </div>
-      <div v-if="user.length > 0" class="overflow-x-auto flex  justify-center flex-col mx-[10%]">
+      <div v-if="user.length > 0" class="overflow-x-auto flex  justify-center flex-col mx-[1%]">
         <table class="min-w-[80%] text-sm text-left text-gray-700 border border-gray-300">
           <thead class=" text-xs uppercase font-medium">
             <tr>
