@@ -22,7 +22,11 @@
                 <SideBar @update:tags="handleUpdatedTags" />
             </div>
 
-            <div class="md:w-3/5 w-[100%] p-4 pt-0 ">
+            <div v-if="isLoading" class="flex justify-center w-full items-start">
+                <Loader />
+            </div>
+
+            <div v-else class="md:w-3/5 w-[100%] p-4 pt-0 ">
 
                 <div class="mb-5  pb-2 rounded-lg flex justify-between items-center ">
                     <h1 class="text-center text-3xl text-black">
@@ -70,6 +74,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { useRouter } from "vue-router";
 import Card from '~/components/Receitas/Card.vue';
 import SideBar from '~/components/Receitas/SideBar.vue'
+import Loader from '~/components/Loader.vue';
 
 const { $axios } = useNuxtApp()
 const router = useRouter();
@@ -122,7 +127,7 @@ const handleUpdatedTags = async (tags) => {
 
 
 
-const { data: tags, isLoading } = useQuery(
+const { data: tags } = useQuery(
     ['tags'],
     async () => {
         const response = await $axios.get('recipes/tags');
@@ -133,7 +138,7 @@ const { data: tags, isLoading } = useQuery(
     }
 );
 
-const { data: recipes, refetch } = useQuery(
+const { data: recipes, isLoading, refetch } = useQuery(
     ['recipes', selectedTags],
     async () => {
         let url = 'recipes';
@@ -171,7 +176,7 @@ const { data: recipes, refetch } = useQuery(
         }
     },
     {
-        staleTime: 6000,
+        staleTime: 0,
     }
 );
 

@@ -3,10 +3,10 @@
     <div v-if="!isLoading" class="">
 
       <div class="flax items-start justify-start mb-5 mx-[1%] custompage">
-            <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
-            ← Voltar
+        <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
+          ← Voltar
         </button>
-        </div>
+      </div>
 
       <div class="flex justify-start  mx-[1%] items-end flex-col md:flex-row md:justify-between">
         <BaseInput class=" w-[100%] md:w-[300px] mb-0" v-model="searchUser" label="Pesquisar" />
@@ -33,7 +33,7 @@
                   :href="`https://www.google.com/maps?q=${u.address.coordinates.lat},${u.address.coordinates.lng}`"
                   target="_blank" rel="noopener noreferrer">
                   {{ `${u.address.address}, ${u.address.city} ${u.address.stateCode} - ${u.address.country}` }}</a>
-                  <img src="../../assets/img/link.png" alt="compartilhar" class="w-[15px] h-[15px]">
+                <img src="../../assets/img/link.png" alt="compartilhar" class="w-[15px] h-[15px]">
               </td>
             </tr>
           </tbody>
@@ -42,7 +42,7 @@
         <div class="flex justify-end gap-5 mt-5">
           <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
             class="btn-change-page bg-green-600 text-white">Voltar</button>
-          <button @click="nextPage()" :style="{ visibility: total != skip + limit? 'visible' : 'hidden' }"
+          <button @click="nextPage()" :style="{ visibility: total != skip + limit ? 'visible' : 'hidden' }"
             class="btn-change-page bg-green-600 text-white">Próximo</button>
         </div>
 
@@ -57,7 +57,9 @@
 
 
 
-    <Loader v-else />
+    <div v-else class="flex justify-center w-full items-start">
+      <Loader />
+    </div>
   </div>
 </template>
 
@@ -76,16 +78,16 @@ const searchUser = ref('')
 const { $axios } = useNuxtApp()
 
 const nextPage = async () => {
-    skip.value = skip.value + 20;
-    await refetch()
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  skip.value = skip.value + 20;
+  await refetch()
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 const backPage = async () => {
-    skip.value = skip.value - 20;
-    await refetch()
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  skip.value = skip.value - 20;
+  await refetch()
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 
 const fetchUsers = async () => {
@@ -131,19 +133,18 @@ watch(searchUser, () => {
 
 
 <style>
-
 .btn-change-page {
-    padding: 3px;
-    width: 120px;
-    height: 35px;
-    border-radius: 5px;
-    font-size: 16px;
+  padding: 3px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .btn-change-page:hover {
-    background-color: white;
-    color: green;
-    border: 2px solid green;
-    font-size: 17px;
+  background-color: white;
+  color: green;
+  border: 2px solid green;
+  font-size: 17px;
 }
 </style>
