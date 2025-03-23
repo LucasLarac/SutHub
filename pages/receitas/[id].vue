@@ -17,11 +17,9 @@
 
           <div class="lg:w-2/6 w-full  rounded-md items-center flex flex-col ">
             <img :src="item.image" :alt="item.name" class="w-[100%] md:w-1/2 lg:w-full rounded-md">
-            <div class="flex items-center w-full md:w-1/2 lg:w-full">
-              <label class="text-md mr-2">{{ item.tags.length > 1 ? 'Tags:' : 'Tag:' }}</label>
-              <span class="text-sm" v-for="(t, index) in item.tags" :key="index">
-                {{ index !== 0 ? ' / ' : '' }}{{ t }}
-              </span>
+            <label class="text-md mr-2 text-start w-[100%] md:w-1/2 lg:w-full">{{ item.tags.length > 1 ? 'Tags:' : 'Tag:' }}</label>
+            <div class=" items-center w-full md:w-1/2 lg:w-full grid grid-cols-3">
+              <span class="text-sm" v-for="(t, index) in item.tags" :key="index">{{ t }} </span>
             </div>
           </div>
 
@@ -45,19 +43,24 @@
 
         </div>
 
-          <div class="flex flex-col lg:flex-row gap-2 justify-between w-full mt-6 items-center rounded-md border-2 border-white p-2 md:border-none" >
-            <label class="text-lg">Tempo de preparo: <span class="text-base">{{ formatTime(item.prepTimeMinutes +
-              item.cookTimeMinutes) }}</span></label>
-
-            <div class="flex items-start">
-              <label class=" text-lg mr-2">Avaliação: </label>
-              <img class="w-[25px]" v-for="i in 5" :key="i" :src="i <= Math.floor(item.rating) ? yellow : gray">
+          <div class="flex flex-col lg:flex-row gap-3 justify-between w-full mt-6 items-start  p-2 " >
+            <div class="flex flex-col">
+              <label class="text-xl">Tempo de preparo: </label>
+              <span class="text-base">{{ formatTime(item.prepTimeMinutes + item.cookTimeMinutes) }}</span>
             </div>
 
-            <div class="flex items-start">
-              <label class="mr-5 text-lg">Porções: </label>
-              <img v-for="i in item.servings" :key="i" src="../../assets/img/prato.png" alt="talher"
-                class="mr-1 w-[35px]">
+            <div>
+              <label class=" text-xl mr-2">Avaliação: </label>
+              <div class="flex gap-1">
+                <img class="w-[25px]" v-for="i in 5" :key="i" :src="i <= Math.floor(item.rating) ? yellow : gray">
+              </div>
+            </div>
+
+            <div>
+              <label class="mr-5 text-xl">Porções: </label>
+              <div class="flex gap-1">
+                <img v-for="i in item.servings" :key="i" src="../../assets/img/prato.png" alt="talher" class="mr-1 w-[35px]">
+              </div>
             </div>
           </div>
       </div>

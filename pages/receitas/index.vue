@@ -121,6 +121,7 @@ watch(selectedTags, async () => {
 });
 
 const handleUpdatedTags = async (tags) => {
+    skip.value = 0
     selectedTags.value = tags
     await refetch();
 }
