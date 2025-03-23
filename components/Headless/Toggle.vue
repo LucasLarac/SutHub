@@ -6,7 +6,7 @@
       v-model="localValue"
       :class="[
         'relative inline-flex h-6 w-11 items-center rounded-full transition border border-gray-400',
-        alwaysGray ? 'bg-gray-300' : (localValue ? 'bg-blue-600' : 'bg-gray-300')
+        alwaysGray ? 'bg-gray-300' : (localValue ? 'bg-green-600' : 'bg-gray-300')
       ]"
     >
       <span
