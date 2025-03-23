@@ -31,7 +31,7 @@ input[type="date"] {
   -webkit-appearance: none;
   padding: 10px 12px;
   font-size: 16px;
-  height: 40px;
+  height: 47.2px;
 }
 
 .input-container {
