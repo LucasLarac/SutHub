@@ -25,7 +25,6 @@ const userStore = useUserStore()
 const usuario = reactive({})
 
 onMounted(() => {
-  console.log('Usuário atual:', userStore.user)
   Object.assign(usuario, userStore.user || {})
   formatInfo()
 })

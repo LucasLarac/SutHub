@@ -104,7 +104,6 @@ const fetchUsers = async () => {
   const response = await $axios.get(url, { params });
   total.value = response.data.total;
   limit.value = response.data.limit
-  console.log(response.data)
   return response.data.users;
 };
 

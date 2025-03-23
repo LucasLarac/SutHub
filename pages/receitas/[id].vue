@@ -107,7 +107,6 @@ const { data: item, isLoading } = useQuery(
   ['receita', recipeId],
   async () => {
     const response = await $axios.get(`recipes/${recipeId}`);
-    console.log(response.data);
     return response.data;
   },
   {
