@@ -161,8 +161,6 @@ const semformatacao = reactive({
 
 function validateSubmit() {
 
-    semformatacao.cep = form.cep ? form.cep.replace(/\D/g, '') : '';
-    semformatacao.cpf = form.cpf ? form.cpf.replace(/\D/g, '') : '';
     semformatacao.renda = form.renda ? parseFloat(form.renda.replace("R$", "").replace(/\./g, "").replace(",", ".")) : 0;
 
 
@@ -188,10 +186,16 @@ function validateSubmit() {
 }
 
 const submitForm = async () => {
+
+
     let dados = { ...form }
-    dados.celular = semformatacao.celular
-    dados.cpf = semformatacao.cpf
-    dados.renda = semformatacao.renda
+    dados.celular = form.celular.replace(/\D/g, '')
+    dados.cep = form.cep.replace(/\D/g, '')
+    dados.cpf = form.cpf.replace(/\D/g, '')
+    dados.renda = form.renda.replace(/\D/g, '')
+    if(form.raca != 'Outros'){
+        form.outraRaca = null
+    }
     userStore.setUser(dados)
     sendInfo()
 }
