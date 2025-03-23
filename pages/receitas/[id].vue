@@ -1,60 +1,65 @@
 <template>
   <div class="w-full min-h-screen flex flex-col items-center bg-orange-600 text-white ">
-    <div v-if="!isLoading" class="gap-10 flex flex-col w-full   p-5 rounded-lg bg-orange-600 text-white">
+
+    <div class="flax items-start justify-start mb-5 px-[5%] md:px-[1%] w-full">
+            <button @click="router.back()" class="text-sm  text-white">
+            ← Voltar
+        </button>
+        </div>
+
+    <div v-if="!isLoading" class="gap-10 flex flex-col w-full  p-5 rounded-lg bg-orange-600 text-white">
       <h1 class="text-3xl mb-5 text-center font-bold tracking-wider">{{ item.name.toUpperCase() }}</h1>
 
 
-      <div class="flex flex-col">
+      <div class="flex flex-col ">
 
-        <div class="w-full flex justify-center items-start gap-10">
+        <div class="w-full flex flex-col items:center lg:flex-row justify-center items-start gap-10">
 
-          <div class="w-2/6 rounded-md">
-            <img :src="item.image" :alt="item.name" class="w-[100%] rounded-md">
-            <div class="flex items-center ">
+          <div class="lg:w-2/6 w-full  rounded-md items-center flex flex-col ">
+            <img :src="item.image" :alt="item.name" class="w-[100%] md:w-1/2 lg:w-full rounded-md">
+            <div class="flex items-center w-full md:w-1/2 lg:w-full">
               <label class="text-md mr-2">{{ item.tags.length > 1 ? 'Tags:' : 'Tag:' }}</label>
-              <span  class="text-sm" v-for="(t, index) in item.tags" :key="index">
+              <span class="text-sm" v-for="(t, index) in item.tags" :key="index">
                 {{ index !== 0 ? ' / ' : '' }}{{ t }}
-              </span>            
+              </span>
             </div>
           </div>
 
-          <div class="flex flex-col w-2/4 gap-8">
+          <div class="flex flex-col lg:w-2/4 w-full gap-8">
 
             <div class="flex flex-col  gap-1 " :key="index">
               <label class="text-2xl mb-4">Modo de preparo: </label>
-              <label class="text-xl text-start w-full mb-1" v-for="(i, index) in item.instructions">{{ index + 1 }}° {{ i
+              <label class="text-xl text-start w-full mb-1" v-for="(i, index) in item.instructions">{{ index + 1 }}° {{
+                i
                 }}</label>
             </div>
 
 
           </div>
 
-          <div class="flex flex-col w-1/4 " :key="index">
+          <div class="flex flex-col lg:w-1/4 w-full" :key="index">
             <label class="text-2xl mb-4 text-start">Ingredientes: </label>
             <label class="text-xl text-start w-full" v-for="(i, index) in item.ingredients">{{ index + 1 }} - {{ i
-              }}</label>
+            }}</label>
           </div>
 
         </div>
 
-        <div class="w-full flex gap-2 justify-between mt-5">
+          <div class="flex flex-col lg:flex-row gap-2 justify-between w-full mt-6 items-center rounded-md border-2 border-white p-2 md:border-none" >
+            <label class="text-lg">Tempo de preparo: <span class="text-base">{{ formatTime(item.prepTimeMinutes +
+              item.cookTimeMinutes) }}</span></label>
 
-          <label class="text-lg">Tempo de preparo: <span class="text-base">{{ formatTime(item.prepTimeMinutes +
-            item.cookTimeMinutes) }}</span></label>
+            <div class="flex items-start">
+              <label class=" text-lg mr-2">Avaliação: </label>
+              <img class="w-[25px]" v-for="i in 5" :key="i" :src="i <= Math.floor(item.rating) ? yellow : gray">
+            </div>
 
-          <div class="flex items-center">
-            <label class=" text-lg mr-2">Avaliação: </label>
-            <img class="w-[25px]" v-for="i in 5" :key="i" :src="i <= Math.floor(item.rating) ? yellow : gray">
+            <div class="flex items-start">
+              <label class="mr-5 text-lg">Porções: </label>
+              <img v-for="i in item.servings" :key="i" src="../../assets/img/prato.png" alt="talher"
+                class="mr-1 w-[35px]">
+            </div>
           </div>
-
-          <div class="flex items-center">
-            <label class="mr-5 text-lg">Porções: </label>
-            <img v-for="i in item.servings" :key="i" src="../../assets/img/prato.png" alt="talher" class="mr-1 w-[35px]">
-          </div>
-
-
-
-        </div>
       </div>
 
       <div class="flex">
@@ -77,6 +82,9 @@ import { useQuery } from '@tanstack/vue-query'
 import Loader from '~/components/Loader.vue';
 import yellow from '@/assets/svg/star-yellow.svg'
 import gray from '@/assets/svg/star-gray.svg'
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 
 const { $axios } = useNuxtApp()
 const route = useRoute();

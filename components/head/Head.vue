@@ -5,7 +5,7 @@
           ☰ Menu
         </button> -->
 
-        <NuxtLink to="/" class="text-gray-700 hover:text-green-600 transition">Home</NuxtLink>
+        <NuxtLink to="/" class="text-green-600 hover:text-green-700 transition">Home</NuxtLink>
   
         <nav class="flex gap-6">
           

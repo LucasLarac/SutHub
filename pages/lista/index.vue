@@ -9,7 +9,7 @@
         </div>
 
       <div class="flex justify-start  mx-[10%] items-end flex-col md:flex-row md:justify-between">
-        <BaseInput class=" w-[300px] mb-0" v-model="searchUser" label="Pesquisar" />
+        <BaseInput class=" w-[100%] md:w-[300px] mb-0" v-model="searchUser" label="Pesquisar" />
         <span>Total: {{ total }}</span>
       </div>
       <div v-if="user.length > 0" class="overflow-x-auto flex  justify-center flex-col mx-[10%]">
@@ -41,9 +41,9 @@
 
         <div class="flex justify-end gap-5 mt-5">
           <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
-            class="btn-change-page">Voltar</button>
+            class="btn-change-page bg-green-600 text-white">Voltar</button>
           <button @click="nextPage()" :style="{ visibility: total != skip + limit? 'visible' : 'hidden' }"
-            class="btn-change-page">Próximo</button>
+            class="btn-change-page bg-green-600 text-white">Próximo</button>
         </div>
 
 
@@ -129,7 +129,6 @@ watch(searchUser, () => {
 <style>
 
 .btn-change-page {
-    background-color: #9EEFB999;
     padding: 3px;
     width: 120px;
     height: 35px;
@@ -138,7 +137,9 @@ watch(searchUser, () => {
 }
 
 .btn-change-page:hover {
-    background-color: #9eefb9;
+    background-color: white;
+    color: green;
+    border: 2px solid green;
     font-size: 17px;
 }
 </style>

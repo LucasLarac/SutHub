@@ -1,6 +1,14 @@
 <template>
     <div class="min-h-screen flex bg-gray-100">
-        <div class="w-full p-4 bg-white rounded-md overflow-y-auto scrollbar-custom lg:h-[1050px] ">
+
+        <div class="w-full p-4 bg-white rounded-md overflow-y-auto scrollbar-custom lg:h-[1050px] md:h-[1710px]  ">
+            <button
+  v-show="showScrollTop"
+  @click="scrollToTop"
+  class="fixed bottom-6 right-6 bg-green-700 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-800 transition md:hidden z-50"
+>
+  ↑ Topo
+</button>
             <div class="flex items-center justify-between md:justify-center mb-4">
                 <h3 class="text-lg font-semibold">Filtrar por Tags</h3>
                 <button @click="fechar()" class="underline cursor-pointer md:hidden">Fechar</button @click="fechar()">
@@ -54,6 +62,23 @@ const erroTag = ref('');
 watch(selectedTags, (newTags) => {
     emit('update:tags', newTags)
 })
+
+const showScrollTop = ref(false);
+
+function scrollToTop() {
+  const container = document.querySelector('.scrollbar-custom');
+  container?.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+onMounted(() => {
+  const container = document.querySelector('.scrollbar-custom');
+  if (container) {
+    container.addEventListener('scroll', () => {
+      showScrollTop.value = container.scrollTop > 200;
+    });
+  }
+});
+
 
 function fechar() {
     emit('fecharform')

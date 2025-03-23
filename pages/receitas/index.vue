@@ -22,9 +22,9 @@
                 <SideBar @update:tags="handleUpdatedTags" />
             </div>
 
-            <div class="md:w-3/5 p-4 pt-0 md:pt-4">
+            <div class="md:w-3/5 w-[100%] p-4 pt-0 md:pt-4">
 
-                <div class="mb-5  py-2 px-5 rounded-lg flex justify-between items-center ">
+                <div class="mb-5  py-2 rounded-lg flex justify-between items-center ">
                     <h1 class="text-center text-3xl text-black">
                         Receitas
                     </h1>
@@ -33,8 +33,8 @@
                         class="md:hidden bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-x-9 gap-y-5 pb-10 w-[100%]">
-                    <div v-for="r in recipes" :key="r.id" class="w-[100%]">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-10 w-[100%]">
+                    <div v-for="r in recipes" :key="r.id" class="w-[100%] flex justify-center">
                         <Card @click="goToRecipe(r.id)" :receita="r" />
                     </div>
                 </div>
