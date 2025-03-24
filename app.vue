@@ -1,8 +1,8 @@
 <template>
-  <div class=" justify-center flex-col items-center bg-gray-100 min-h-screen items:center flex">
-    <Head v-show="mostrarHeader" class="hidden md:flex" />
-        <NuxtPage class="p-[30px] max-w-[1500px] w-full" />
-  </div>
+<main class="flex flex-col items-center justify-center bg-gray-100 min-h-screen">
+  <Head v-show="mostrarHeader" class="hidden md:flex" />
+  <NuxtPage class="p-[30px] max-w-[1500px] w-full" />
+</main>
 </template>
 
 <script setup>

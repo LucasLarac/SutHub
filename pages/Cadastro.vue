@@ -3,14 +3,15 @@
 
         <Notification v-if="notificacao.mensagem" :notificacao="notificacao" />
 
-        <div class="flax items-start justify-start mb-1  custompage lg:min-w-[700px] md:w-[500px] w-[250px] ">
-            <button @click="router.back()" class="text-sm  text-black hover:text-blue-950">
+        <div class="flex items-start justify-start mb-1  custompage lg:min-w-[700px] md:w-[500px] w-[250px] ">
+            <button @click="voltar()" class="text-sm  text-black hover:text-blue-950">
             ← Voltar
         </button>
         </div>
 
-        <FormUser v-if="!isFinished" @finalizar="finalizar"  class="pb-[150px]" />
-
+        <main  v-if="!isFinished" class="h-screen flex flex-col items-center gap-2 overflow-auto" aria-label="Cadastro de usuário">
+            <FormUser @finalizar="finalizar"  class="pb-[150px]" />
+        </main>
         <ListUser v-else />
 
 
@@ -30,7 +31,10 @@ const router = useRouter();
 const isFinished = ref(false)
 const notificacao = reactive({ mensagem: '', sucesso: 'sucesso' })
 
-
+function voltar() {
+  if (window.history.length > 1) router.back()
+  else router.push('/')
+}
 
 function finalizar(info){
     notificacao.mensagem = 'Usuário cadastrado com sucesso!'
@@ -42,9 +46,3 @@ function finalizar(info){
 
 </script>
 
-
-<style>
-
-
-
-</style>
