@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen flex flex-col items-center gap-2 overflow-auto">
+    <div class=" flex flex-col items-center gap-2 ">
 
         <Notification v-if="notificacao.mensagem" :notificacao="notificacao" />
 
