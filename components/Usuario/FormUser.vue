@@ -27,15 +27,15 @@
                     <div class="flex flex-col gap-2">
                         <label class="font-medium text-start w-full">Selecione um animal:</label>
                         <div class="flex gap-4 justify-start">
-                            <label class="flex items-center gap-1"
+                            <label class="flex items-center gap-1 cursor-pointer"
                                 :class="{ 'text-blue-600 font-semibold': form.animalselected === 'Cachorro' }">
-                                <input class="cursor-pointer" type="radio" name="animal" value="Cachorro" v-model="form.animalselected" />
+                                <input  type="radio" name="animal" value="Cachorro" v-model="form.animalselected" />
                                 Cachorro
                             </label>
 
-                            <label class="flex items-center gap-1"
+                            <label class="flex items-center gap-1 cursor-pointer"
                                 :class="{ 'text-blue-600 font-semibold': form.animalselected === 'Gato' }">
-                                <input class="cursor-pointer" type="radio" name="animal" value="Gato" v-model="form.animalselected" />
+                                <input  type="radio" name="animal" value="Gato" v-model="form.animalselected" />
                                 Gato
                             </label>
                         </div>
