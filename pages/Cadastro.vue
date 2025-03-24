@@ -9,7 +9,7 @@
         </button>
         </div>
 
-        <main  v-if="!isFinished" class="h-screen flex flex-col items-center gap-2 overflow-auto" aria-label="Cadastro de usuário">
+        <main v-if="!isFinished" class="flex flex-col items-center gap-2 min-h-screen py-10 px-4" aria-label="Cadastro de usuário">
             <FormUser @finalizar="finalizar"  class="pb-[150px]" />
         </main>
         <ListUser v-else />

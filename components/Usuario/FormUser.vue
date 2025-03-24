@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col text-center gap-5">
-        <div class="rounded-xl bg-white p-5 flex flex-col text-center gap-5 border-2 border-gray-300 lg:min-w-[700px] ">
+<div class="flex flex-col text-center gap-5 w-full max-w-5xl">
+    <div class="rounded-xl bg-white p-5 flex flex-col text-center gap-5 border-2 border-gray-300 lg:min-w-[700px] ">
             <h1 class="text-4xl">Formulário</h1>
 
             <form @submit.prevent="validateSubmit()">
@@ -234,5 +234,3 @@ watch(() => form.cep, (novoCep) => {
 </script>
 
 
-
-<style></style> assim?
