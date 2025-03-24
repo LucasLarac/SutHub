@@ -44,12 +44,27 @@
 
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import { useRouter } from "vue-router";
 import Loader from '../Loader.vue';
 import BaseInput from '../BaseInput.vue';
 import {scrollToTop} from '@/composables/functions'
+
+onMounted(() => {
+  const savedTags = localStorage.getItem('selectedTags');
+  if (savedTags) {
+    selectedTags.value = JSON.parse(savedTags);
+    emit('update:tags', selectedTags.value);
+  }
+
+  const container = document.querySelector('.scrollbar-custom');
+  if (container) {
+    container.addEventListener('scroll', () => {
+      showScrollTop.value = container.scrollTop > 200;
+    });
+  }
+});
 
 const emit = defineEmits(['update:tags'])
 

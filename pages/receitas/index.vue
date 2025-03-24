@@ -69,7 +69,7 @@
 <script setup>
 useHead({ title: `Sethub - Receitas` })
 
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import { useRouter } from "vue-router";
 import Card from '~/components/Receitas/Card.vue';
@@ -87,6 +87,18 @@ const toggleSidebar = () => {
 
 
 const selectedTags = ref([])
+watch(selectedTags, (newTags) => {
+  localStorage.setItem('selectedTags', JSON.stringify(newTags));
+});
+
+onMounted(() => {
+  const savedTags = localStorage.getItem('selectedTags');
+  if (savedTags) {
+    selectedTags.value = JSON.parse(savedTags);
+    refetch();
+  }
+});
+
 const limit = ref('12')
 const skip = ref(0)
 const total = ref(0)
