@@ -16,7 +16,7 @@
                     <div>
                         <BaseInput :error="erros.cep" v-model="form.cep" label="CEP" type="text" inputmode="numeric"
                             required @input="form.cep = formatCep(form.cep)" />
-                        <p v-show="form.rua">{{ form.rua }}, {{ form.cidade }} - {{ form.uf }}</p>
+                        <p v-show="form.rua">{{ form.rua }}, {{ form.bairro }}, {{ form.cidade }} - {{ form.uf }}</p>
                     </div>
 
                     <BaseInput :error="erros.renda" v-model="form.renda" label="Renda mensal" type="text"

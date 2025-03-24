@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             <tr v-for="u in user" :key="u.id" class="hover:bg-gray-100 h-[50px]">
-              <td class="px-4 py-2 border-b rounded-full w-[15px]"><img :src="u.image" alt=""></td>
+              <td class="px-4 py-2 border-b  w-[15px]"><img class="rounded-full" :src="u.image" alt="user foto"></td>
               <td class="px-4 py-2 border-b">{{ u.firstName + ' ' + u.maidenName + " " + u.lastName }}</td>
               <td class="px-4 py-2 border-b text-center">{{ formatDate(u.birthDate) }}</td>
               <td class="px-4 py-2 border-b text-center">{{ u.gender == 'female' ? 'Feminino' : 'Masculino' }}</td>

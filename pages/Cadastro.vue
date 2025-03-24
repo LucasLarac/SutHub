@@ -27,7 +27,7 @@ import { useRouter } from "vue-router";
 import Notification from '~/components/Notification.vue';
 
 const router = useRouter();
-const isFinished = ref(true)
+const isFinished = ref(false)
 const notificacao = reactive({ mensagem: '', sucesso: 'sucesso' })
 
 
