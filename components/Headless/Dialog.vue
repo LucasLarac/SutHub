@@ -25,7 +25,7 @@
               leave-to="opacity-0 scale-95"
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left shadow-xl transition-all">
-                <DialogTitle class="text-lg font-medium text-gray-900">
+                <DialogTitle class="text-lg font-medium text-gray-900 text-center">
                   {{ title }}
                 </DialogTitle>
   
@@ -35,7 +35,7 @@
   
                 <div class="mt-6 flex justify-end">
                   <button
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    class="px-4 py-2  text-white rounded-xl hover:bg-blue-700"
                     @click="$emit('update:modelValue', false)"
                   >
                     Fechar
@@ -62,4 +62,9 @@
   
   defineEmits(['update:modelValue'])
   </script>
+
   
+  <style scoped>
+button{
+  background: royalblue;}
+</style>
