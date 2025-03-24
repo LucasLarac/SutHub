@@ -39,9 +39,24 @@
           </tbody>
         </table>
 
-        <div class="flex justify-end gap-5 mt-5">
+        <div class="flex justify-end gap-2 mt-5">
           <button @click="backPage()" :style="{ visibility: skip > 0 ? 'visible' : 'hidden' }"
             class="btn-change-page bg-green-600 text-white">Voltar</button>
+
+          <div class="flex gap-2 items-center flex-wrap">
+            <button v-for="page in visiblePages" :key="page.label"
+              @click="() => typeof page.number === 'number' && goToPage(page.number)"
+              class="px-3 py-1 rounded border text-sm h-[30px] w-[30px] flex items-center - justify-center"
+              :disabled="!page.number" :class="{
+                'bg-green-600 text-white': page.number === currentPage,
+                'bg-white text-green-600 border-green-600 hover:bg-green-100': page.number && page.number !== currentPage,
+                'cursor-default': !page.number
+              }">
+              {{ page.label }}
+            </button>
+          </div>
+
+
           <button @click="nextPage()" :style="{ visibility: total != skip + limit ? 'visible' : 'hidden' }"
             class="btn-change-page bg-green-600 text-white">Próximo</button>
         </div>
@@ -74,6 +89,41 @@ const limit = ref(0)
 const skip = ref(0)
 const total = ref(0)
 const searchUser = ref('')
+
+const currentPage = computed(() => Math.floor(skip.value / limit.value) + 1);
+const totalPages = computed(() => Math.ceil(total.value / limit.value));
+
+const visiblePages = computed(() => {
+  const pages = [];
+
+  const first = 1;
+  const last = totalPages.value;
+  const current = currentPage.value;
+
+  pages.push({ number: first, label: '1' });
+
+
+  if (current !== first && current !== last) {
+    pages.push({ number: current, label: `${current}` });
+  }
+
+
+
+  if (last !== first) {
+    pages.push({ number: last, label: `${last}` });
+  }
+
+  return pages;
+});
+
+const goToPage = async (page) => {
+  if (!page || page === currentPage.value) return;
+  skip.value = (page - 1) * limit.value;
+  await refetch();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+
 
 const { $axios } = useNuxtApp()
 
@@ -134,7 +184,7 @@ watch(searchUser, () => {
 <style>
 .btn-change-page {
   padding: 3px;
-  width: 120px;
+  width: 100px;
   height: 35px;
   border-radius: 5px;
   font-size: 16px;
