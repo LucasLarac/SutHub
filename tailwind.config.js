@@ -7,7 +7,11 @@ export default {
     "./app.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        md2: '1200px',
+      },
+    },
   },
   plugins: [],
 };

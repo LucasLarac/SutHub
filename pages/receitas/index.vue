@@ -37,7 +37,7 @@
                         class="md:hidden bg-[#9EEFB999] px-3 py-1 rounded-md bolde">Filtrar</button>
                 </div>
 
-                <div v-if="total > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-10 w-[100%]">
+                <div v-if="total > 0" class="grid grid-cols-1 md:grid-cols-2 md2:grid-cols-2 xl:grid-cols-3 gap-5 pb-10 w-[100%]">
                     <div v-for="r in recipes" :key="r.id" class="w-[100%] flex justify-center">
                         <Card @click="goToRecipe(r.id)" :receita="r" />
                     </div>
