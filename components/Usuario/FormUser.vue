@@ -94,7 +94,7 @@
 <script setup>
 import { ref, reactive, watch } from 'vue'
 import BaseInput from '../BaseInput.vue'
-import { formatCpf, validateFullName, validateCpf, validateBirthDate, formatPhone, formatCep, formatCurrency } from '@/composables/functions'
+import {capitalizeAllFirstLetter, formatCpf, validateFullName, validateCpf, validateBirthDate, formatPhone, formatCep, formatCurrency } from '@/composables/functions'
 import Toggle from '../Headless/Toggle.vue'
 import Dialog from '../Headless/Dialog.vue';
 import ListBox from '../Headless/ListBox.vue';

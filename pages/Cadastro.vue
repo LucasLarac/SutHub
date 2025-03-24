@@ -27,13 +27,13 @@ import { useRouter } from "vue-router";
 import Notification from '~/components/Notification.vue';
 
 const router = useRouter();
-const isFinished = ref(false)
+const isFinished = ref(true)
 const notificacao = reactive({ mensagem: '', sucesso: 'sucesso' })
 
 
 
 function finalizar(info){
-    notificacao.mensagem('Usuário cadastrado com sucesso!')
+    notificacao.mensagem = 'Usuário cadastrado com sucesso!'
     setTimeout(() => {
         notificacao.mensagem = ''
     }, 2300);

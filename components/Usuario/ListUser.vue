@@ -19,6 +19,7 @@
 import { ref, onMounted, reactive } from 'vue'
 import { useUserStore } from '@/stores/useUser'
 import { useRouter } from 'vue-router'
+import {capitalizeAllFirstLetter, formatCpf, validateFullName, validateCpf, validateBirthDate, formatPhone, formatCep, formatCurrency } from '@/composables/functions'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -38,6 +39,7 @@ function formatInfo(){
     usuario.cpf = formatCpf(usuario.cpf)
     usuario.renda = formatCurrency(usuario.renda)
     usuario.cep = formatCep(usuario.cep)
+    usuario.nomeCompleto = capitalizeAllFirstLetter(usuario.nomeCompleto)
     usuario.possuiCarro = usuario.temCarro ? 'Sim' : 'Não'
      delete usuario.temCarro
     usuario.animalSelecionado = usuario.animalselected

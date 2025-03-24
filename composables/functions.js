@@ -4,6 +4,13 @@ export function capitalizeFirstLetter(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+export function capitalizeAllFirstLetter(str) {
+  if (!str) return ''
+  return str
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
 export function validateFullName(nome) {
   if (!nome) return false;
 
