@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       screens: {
-        md2: '1200px',
+        md2: '1290px',
       },
     },
   },
