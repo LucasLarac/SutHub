@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-green-800  lg:h-[225px]   md:h-[auto]  h-auto w-[100%] md:w-[100%] lg:w-[100%] text-white  rounded-xl p-5 flex flex-col  items-center gap-5 cursor-pointer ">
+    <div class="bg-green-800  lg:h-[auto]   md:h-[auto]  h-auto w-[100%] md:w-[100%] lg:w-[100%] text-white  rounded-xl p-5 flex flex-col  items-center gap-5 cursor-pointer ">
         <h1 class="font-bold text-center tracking-wider min-h-[35px]">{{ receita.name }}</h1>
 
         <div class="flex md:justify-between flex-row md:flex-col lg:flex-row items-center h-[100%] justify-between">
