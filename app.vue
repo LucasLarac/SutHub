@@ -1,6 +1,6 @@
 <template>
 <main class="flex flex-col items-center justify-center bg-gray-100 min-h-screen">
-  <Head v-show="mostrarHeader" class="hidden md:flex" />
+  <Head v-show="mostrarHeader" class=" md:flex" />
   <NuxtPage class="p-[30px] max-w-[1500px] w-full" />
 </main>
 </template>
