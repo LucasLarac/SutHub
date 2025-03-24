@@ -49,7 +49,7 @@
 
                     <div class="flex gap-2 items-center flex-col justify-start">
                         <div class="flex gap-2 w-full">
-                            <button @click="showModal = true" title="Porque precisamos desta informação?" class="text-blue-600 border-2 border-blue-600 text-sm flex 
+                            <button type="button" @click="showModal = true" title="Porque precisamos desta informação?" class="text-blue-600 border-2 border-blue-600 text-sm flex 
                             items-center justify-center rounded-full w-[20px] h-[20px]"> ?
                             </button>
                             <span>Possui carro?</span>

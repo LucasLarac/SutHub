@@ -20,7 +20,7 @@
             <label class="text-md mr-2 text-start w-[100%] md:w-1/2 lg:w-full">{{ item.tags.length > 1 ? 'Tags:' :
               'Tag:' }}</label>
             <div class=" items-center w-full md:w-1/2 lg:w-full grid grid-cols-3">
-              <span class="text-sm" v-for="(t, index) in item.tags" :key="index">{{ t }} </span>
+              <span class="text-sm" v-for="(t, index) in item.tags" :key="index">- {{ t }} </span>
             </div>
           </div>
 
