@@ -2,10 +2,10 @@
   <div class="w-full min-h-screen flex flex-col items-center bg-orange-600 text-white ">
 
     <div class="flax items-start justify-start mb-5 px-[5%] md:px-[1%] w-full">
-            <button @click="router.back()" class="text-sm  text-white">
-            ← Voltar
-        </button>
-        </div>
+      <button @click="router.back()" class="text-sm  text-white">
+        ← Voltar
+      </button>
+    </div>
 
     <div v-if="!isLoading" class="gap-10 flex flex-col w-full  p-5 rounded-lg bg-orange-600 text-white">
       <h1 class="text-3xl mb-5 text-center font-bold tracking-wider">{{ item.name.toUpperCase() }}</h1>
@@ -17,7 +17,8 @@
 
           <div class="lg:w-2/6 w-full  rounded-md items-center flex flex-col ">
             <img :src="item.image" :alt="item.name" class="w-[100%] md:w-1/2 lg:w-full rounded-md">
-            <label class="text-md mr-2 text-start w-[100%] md:w-1/2 lg:w-full">{{ item.tags.length > 1 ? 'Tags:' : 'Tag:' }}</label>
+            <label class="text-md mr-2 text-start w-[100%] md:w-1/2 lg:w-full">{{ item.tags.length > 1 ? 'Tags:' :
+              'Tag:' }}</label>
             <div class=" items-center w-full md:w-1/2 lg:w-full grid grid-cols-3">
               <span class="text-sm" v-for="(t, index) in item.tags" :key="index">{{ t }} </span>
             </div>
@@ -29,7 +30,7 @@
               <label class="text-2xl mb-4">Modo de preparo: </label>
               <label class="text-xl text-start w-full mb-1" v-for="(i, index) in item.instructions">{{ index + 1 }}° {{
                 i
-                }}</label>
+              }}</label>
             </div>
 
 
@@ -43,26 +44,27 @@
 
         </div>
 
-          <div class="flex flex-col lg:flex-row gap-3 justify-between w-full mt-6 items-start  p-2 " >
-            <div class="flex flex-col">
-              <label class="text-xl">Tempo de preparo: </label>
-              <span class="text-base">{{ formatTime(item.prepTimeMinutes + item.cookTimeMinutes) }}</span>
-            </div>
+        <div class="flex flex-col lg:flex-row gap-3 justify-between w-full mt-6 items-start  p-2 ">
+          <div class="flex flex-col">
+            <label class="text-xl">Tempo de preparo: </label>
+            <span class="text-base">{{ formatTime(item.prepTimeMinutes + item.cookTimeMinutes) }}</span>
+          </div>
 
-            <div>
-              <label class=" text-xl mr-2">Avaliação: </label>
-              <div class="flex gap-1">
-                <img class="w-[25px]" v-for="i in 5" :key="i" :src="i <= Math.floor(item.rating) ? yellow : gray">
-              </div>
-            </div>
-
-            <div>
-              <label class="mr-5 text-xl">Porções: </label>
-              <div class="flex gap-1">
-                <img v-for="i in item.servings" :key="i" src="../../assets/img/prato.png" alt="talher" class="mr-1 w-[35px]">
-              </div>
+          <div class>
+            <label class=" text-xl mr-2">Avaliação: </label>
+            <div class="flex flex-wrap gap-1 max-w-full">
+              <img class="w-[25px]" v-for="i in 5" :key="i" :src="i <= Math.floor(item.rating) ? yellow : gray">
             </div>
           </div>
+
+          <div>
+            <label class="mr-5 text-xl">Porções: </label>
+            <div class="grid grid-cols-5 gap-2 w-full max-w-[200px]">
+              <img v-for="i in item.servings" :key="i" src="../../assets/img/prato.png" alt="talher" class="w-[35px]" />
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <div class="flex">

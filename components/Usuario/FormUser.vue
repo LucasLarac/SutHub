@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col text-center gap-5">
-        <div class="rounded-xl bg-white p-5 flex flex-col text-center gap-5 border-2 border-gray-300 lg:min-w-[700px]">
+        <div class="rounded-xl bg-white p-5 flex flex-col text-center gap-5 border-2 border-gray-300 lg:min-w-[700px] ">
             <h1 class="text-4xl">Formulário</h1>
 
             <form @submit.prevent="validateSubmit()">
@@ -40,7 +40,7 @@
                         <p v-if="erros.animalselected" class="text-red-500 text-xs mt-1 text-start w-full">{{ erros.animalselected }}</p>
                     </div>
 
-                    <ListBox :error="erros.raca" v-model="form.raca" :options="form.animalselected == 'Gato' ?  racasGato : racasCao"
+                    <ListBox :disabled="!form.animalselected"  :error="erros.raca" v-model="form.raca" :options="form.animalselected == 'Gato' ?  racasGato : racasCao"
                         :placeholder="form.raca ? 'Selecione a raça ' : 'Selecione a raça ▼'" />
 
                     <BaseInput :error="erros.outraRaca" v-model="form.outraRaca" v-if="form.raca == 'Outros'"
@@ -85,16 +85,15 @@
 
 
 
-            <Notification v-if="notificacao.mensagem" :notificacao="notificacao" />
 
         </div>
+
     </div>
 </template>
 
 <script setup>
 import { ref, reactive, watch } from 'vue'
 import BaseInput from '../BaseInput.vue'
-import Notification from '../Notification.vue';
 import { formatCpf, validateFullName, validateCpf, validateBirthDate, formatPhone, formatCep, formatCurrency } from '@/composables/functions'
 import Toggle from '../Headless/Toggle.vue'
 import Dialog from '../Headless/Dialog.vue';
@@ -131,7 +130,6 @@ const userStore = useUserStore()
 const showModal = ref(false)
 const { $axios } = useNuxtApp();
 
-const notificacao = reactive({ mensagem: '', sucesso: null })
 const racasCao = ref(['Lhasa Apso', 'Pitbull', 'Pastor Alemão', 'Poodle', 'Vira Lara', 'Outros'])
 const racasGato = ref(['Siamês', 'Persa', 'Maine Coon', 'Sphynx', 'British Shorthair', 'Outros'])
 

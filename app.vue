@@ -2,14 +2,12 @@
   <div class=" justify-center flex-col items-center bg-gray-100 min-h-screen items:center flex">
     <Head v-show="mostrarHeader" class="hidden md:flex" />
         <NuxtPage class="p-[30px] max-w-[1500px] w-full" />
-    <!-- <FooterB /> -->
   </div>
 </template>
 
 <script setup>
 import "@/assets/css/tailwind.css"
 import { useHead } from '#imports';
-import { FooterB } from "#components";
 import Head from "./components/head/Head.vue";
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'

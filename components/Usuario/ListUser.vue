@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col text-center gap-5">
-        <div class="rounded-xl bg-white p-5 flex flex-col text-center gap-5 border-2 border-gray-300 lg:min-w-[700px] w-[700px]">
+    <div class="flex flex-col text-center gap-5 w-[90%] lg:w-[700px] pb-[100px] overflow-auto md:w-[90%]">
+        <div class="rounded-xl bg-white p-5 flex flex-col text-center gap-5 border-2 border-gray-300 w-full">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div class=" rounded-md p-2 flex flex-col text-start" v-for="(value, key) in usuario" :key="key">

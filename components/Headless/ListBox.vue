@@ -1,6 +1,5 @@
 <template>
   <div class="relative w-full">
-    <!-- Label flutuante -->
     <label
       class="absolute left-4 text-gray-500 transition-all duration-200 pointer-events-none bg-white px-1 z-10"
       :class="{ 'text-xs -top-2.5': selected || modelValue, 'top-2.5': !selected && !modelValue }"
@@ -8,7 +7,7 @@
       {{ placeholder }}
     </label>
 
-    <Listbox v-model="selected">
+    <Listbox v-model="selected" :disabled="props.disabled">
       <div class="relative">
         <ListboxButton
           class="relative w-full cursor-pointer rounded-md border-2 border-[rgba(128,128,128,0.816)] h-[47.2px] bg-white  pl-4 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-white">
@@ -54,7 +53,11 @@ const props = defineProps({
     type: String,
     default: 'Selecione uma opção'
   },
-  error :String
+  error :String,
+  disabled: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])
