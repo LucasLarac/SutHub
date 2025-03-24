@@ -38,6 +38,7 @@ function formatInfo(){
     usuario.dataAniversario = formatDate(usuario.dataAniversario)
     usuario.cpf = formatCpf(usuario.cpf)
     usuario.renda = formatCurrency(usuario.renda)
+    usuario.celular = formatPhone(usuario.celular)
     usuario.cep = formatCep(usuario.cep)
     usuario.nomeCompleto = capitalizeAllFirstLetter(usuario.nomeCompleto)
     usuario.possuiCarro = usuario.temCarro ? 'Sim' : 'Não'
