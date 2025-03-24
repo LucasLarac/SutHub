@@ -155,4 +155,33 @@ const { data: tags, isLoading } = useQuery(
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: #42c563;
 }
+
+.custom-checkbox:checked{
+    background-color: #42c563 !important;
+
+}
+
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #42c563;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-checkbox:checked::after {
+  content: '✔';
+  position: absolute;
+  left: 3px;
+  top: -1px;
+  font-size: 14px;
+  color: white;
+}
 </style>
